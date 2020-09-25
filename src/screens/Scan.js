@@ -13,11 +13,7 @@ class Scan extends React.Component {
       try_button: "SCANNER",
       error: false,
       
-      color:'#fff',
-      container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
+      color: {
         backgroundColor: '#fff'
       }
     }
