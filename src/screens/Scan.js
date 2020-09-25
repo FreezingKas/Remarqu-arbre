@@ -12,7 +12,8 @@ class Scan extends React.Component {
       description_text: "Approchez votre téléphone de la puce sur l'arbre.",
       try_button: "SCANNER",
       error: false,
-
+      
+      color:'#fff',
       container: {
         flex: 1,
         alignItems: 'center',
@@ -31,10 +32,7 @@ class Scan extends React.Component {
         try_button: "RÉESAYER",
         error: true,
 
-        container: {
-          flex: 1,
-          alignItems: 'center',
-          justifyContent: 'center',
+        color: {
           backgroundColor: '#FFC2C2'
         }
       }));
@@ -47,10 +45,7 @@ class Scan extends React.Component {
         try_button: "SCANNER",
         error: false,
 
-        container: {
-          flex: 1,
-          alignItems: 'center',
-          justifyContent: 'center',
+        color: {
           backgroundColor: '#fff'
         }
       }));
@@ -60,7 +55,7 @@ class Scan extends React.Component {
 
   render() {
     return (
-      <SafeAreaView style={this.state.container}>
+      <SafeAreaView style={[styles.container, this.state.color]}>
         <Text style={styles.title_text}>{this.state.title_text}</Text>
         <Image
           source={this.state.uri}
@@ -91,6 +86,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#000',
     marginBottom: 20
+  },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#fff'
   },
   scan_image: {
     width: Dimensions.get('window').width - 40,
