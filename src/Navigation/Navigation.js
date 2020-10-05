@@ -1,10 +1,10 @@
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
-import Accueil from '../screens/Accueil';
-import ArbreItem from '../screens/ArbreItem';
-import Historique from '../screens/Historique';
-import Scan from '../screens/Scan';
-import LoginScreen from '../screens/LoginScreen';
+import Accueil from '../Screens/Accueil';
+import ArbreItem from '../Screens/ArbreItem';
+import Historique from '../Screens/Historique';
+import Scan from '../Screens/Scan';
+import LoginScreen from '../Screens/LoginScreen';
 
 const SearchStackNavigator = createStackNavigator({
   Accueil: {
