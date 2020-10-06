@@ -16,11 +16,23 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "ios": {
-      "supportsTablet": true
-    },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "android": {
+      "package": "com.company",
+      "config": {
+          "googleMaps": {
+              "apiKey": "<AIzaSyAyFBFUGpc4_jQCD5z85IyBu8DjOL1-fog>"
+          }
+      }
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.company",
+      "config": {
+          "googleMapsApiKey": "<AIzaSyBM3ikuKqnokbnw_-u2cTU8ZnxT1GgVTMg>"
+      }
     }
   }
 }

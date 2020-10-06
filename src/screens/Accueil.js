@@ -2,7 +2,9 @@ import React from 'react';
 import { StyleSheet, Text, View, SafeAreaView, Button, TextInput, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {Modalize} from 'react-native-modalize';
-import data from '../helpers/Arbre'
+import data from '../helpers/Arbre';
+import MyMap from '../components/MyMap';
+import MapView from 'react-native-maps';
 
 class Accueil extends React.Component {
 
@@ -18,7 +20,7 @@ class Accueil extends React.Component {
     
   renderItem = (item) => (
     <View style={styles.itemArbre}>
-      <TouchableOpacity style={{flexDirection: 'row'}}>
+      <View style={{flexDirection: 'row'}}>
         <Image
           style={styles.image}
           source={item.photo}
@@ -27,7 +29,7 @@ class Accueil extends React.Component {
           <Text style={styles.nomArbreItem}>{item.nom}</Text>
           <Text>{item.date}</Text>
         </View>
-      </TouchableOpacity>
+      </View>
       <View style={{alignItems: 'center'}}>
         <View
           style={{
@@ -45,7 +47,7 @@ class Accueil extends React.Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <Text>Accueil</Text>
+        <MyMap></MyMap>
         <Button
           //onPress={() => this.props.navigation.navigate("Scan")}
           onPress={() => this.onOpen()}
@@ -55,22 +57,25 @@ class Accueil extends React.Component {
           onPress={() => this.props.navigation.navigate("Scan")}
           title="Scan"
         />
+
+
         <Modalize
-        ref={modalizeRef}
-        flatListProps={{
-          style: styles.flatlist,
-          data: data,
-          renderItem:  ({item}) => this.renderItem(item),
-          keyExtractor: item => item.id,
-          showsVerticalScrollIndicator: false,
-        }}
-        modalHeight={500}
-        HeaderComponent={
-          <View>
-            <TextInput style={styles.search} placeholder='Ceci est TextInput'/>
-          </View>
-        }
-      />
+          ref={modalizeRef}
+          flatListProps={{
+            style: styles.flatlist,
+            data: data,
+            renderItem:  ({item}) => this.renderItem(item),
+            keyExtractor: item => item.id,
+            showsVerticalScrollIndicator: false,
+          }}
+          modalHeight={500}
+          HeaderComponent={
+            <View>
+              <TextInput style={styles.search} placeholder='Ceci est TextInput'/>
+            </View>
+          }
+        />
+        
       </SafeAreaView>
     )
   }
