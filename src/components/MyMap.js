@@ -18,7 +18,6 @@ export default class MyMap extends React.Component {
                 </MapView>
             </View>
         )
-        
     }
 }
 

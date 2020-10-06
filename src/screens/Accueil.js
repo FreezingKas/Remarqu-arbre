@@ -2,21 +2,17 @@ import React from 'react';
 import { StyleSheet, Text, View, SafeAreaView, Button, TextInput, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {Modalize} from 'react-native-modalize';
-import data from '../helpers/Arbre';
-import MyMap from '../components/MyMap';
+import { Title } from 'react-native-paper';
 import Modal from 'react-native-modal';
 
-import { Title } from 'react-native-paper';
-import FormInput from '../components/FormInput';
-import FormButton from '../components/FormButton';
+import data from '../helpers/Arbre';
 
-
-import ListItem from '../components/ListItem';
-
-
+import MyMap from '../Components/MyMap';
+import FormInput from '../Components/FormInput';
+import FormButton from '../Components/FormButton';
+import ListItem from '../Components/ListItem';
 
 class Accueil extends React.Component {
-
 
   constructor(props) {
     super(props)
@@ -26,39 +22,12 @@ class Accueil extends React.Component {
   onOpen = () => {
     modalizeRef.current?.open();
   };
-    
-  renderItem = (item) => (
-    <View style={styles.itemArbre}>
-      <View style={{flexDirection: 'row'}}>
-        <Image
-          style={styles.image}
-          source={item.photo}
-        />
-        <View style={styles.textArbreItem}>
-          <Text style={styles.nomArbreItem}>{item.nom}</Text>
-          <Text>{item.date}</Text>
-        </View>
-      </View>
-      <View style={{alignItems: 'center'}}>
-        <View
-          style={{
-            backgroundColor: 'black',
-            width: 60,
-            height: 2,
-            marginTop: 5,
-            marginBottom: 5,
-          }}
-        ></View>
-      </View>
-    </View>
-  );
-  
+
   render() {
     return (
       <SafeAreaView style={styles.container}>
         <MyMap></MyMap>
         <Button
-          //onPress={() => this.props.navigation.navigate("Scan")}
           onPress={() => this.onOpen()}
           title="Historique"
         />
@@ -66,8 +35,6 @@ class Accueil extends React.Component {
           onPress={() => this.props.navigation.navigate("Scan")}
           title="Scan"
         />
-
-
         <Modalize
           ref={modalizeRef}
           flatListProps={{
@@ -79,52 +46,42 @@ class Accueil extends React.Component {
                 item={item}
                 nav={this.props.navigation}
               />
-            ),
+            )
           }}
           modalHeight={500}
           HeaderComponent={
             <View>
+              <Text style={styles.historique}>Historique</Text>
               <TextInput style={styles.search} placeholder='Ceci est un TextInput'/>
             </View>
           }
         />
-          
-
-            <Modal isVisible={false} style={{backgroundColor: "white", borderRadius: 10}}>
-              <View style={{flex: 1, justifyContent:'center', alignItems:'center'}}>
-                <View style={styles.container1}>
-                  <Title style={styles.titleText}>Welcome to Chat app</Title>
-                  <FormInput
-                    labelName='Email'
-                    
-                    autoCapitalize='none'
-                    
-                  />
-                  <FormInput
-                    labelName='Password'
-                    
-                    secureTextEntry={true}
-                    
-                  />
-                  <FormButton
-                    title='Login'
-                    modeValue='contained'
-                    labelStyle={styles.loginButtonLabel}
-                  />
-                  <FormButton
-                    title='New user? Join here'
-                    modeValue='text'
-                    uppercase={false}
-                    labelStyle={styles.navButtonText}
-                  />
-                </View>
-              </View>
-            </Modal>
-          
-        
-
-
-
+        <Modal isVisible={false} style={{backgroundColor: "white", borderRadius: 10}}>
+          <View style={{flex: 1, justifyContent:'center', alignItems:'center'}}>
+            <View style={styles.container1}>
+              <Title style={styles.titleText}>Bienvenue dans ScanArbre</Title>
+              <FormInput
+                labelName='Email'
+                autoCapitalize='none'
+              />
+              <FormInput
+                labelName='Mot de passe'
+                secureTextEntry={true}
+              />
+              <FormButton
+                title='Connection'
+                modeValue='contained'
+                labelStyle={styles.loginButtonLabel}
+              />
+              <FormButton
+                title='Nouveau membre ? Inscris-toi'
+                modeValue='text'
+                uppercase={false}
+                labelStyle={styles.navButtonText}
+              />
+            </View>
+          </View>
+        </Modal>
       </SafeAreaView>
     )
   }
@@ -143,6 +100,12 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 10,
     paddingHorizontal: 15,
+  },
+  historique: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginTop: 20
   },
   image: {
     width: 64,
@@ -164,8 +127,6 @@ const styles = StyleSheet.create({
   nomArbreItem: {
     fontSize: 20
   },
-
-
   container1: {
     backgroundColor: 'white',
     flex: 1,
