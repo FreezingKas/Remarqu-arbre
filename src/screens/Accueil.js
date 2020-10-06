@@ -4,7 +4,16 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import {Modalize} from 'react-native-modalize';
 import data from '../helpers/Arbre';
 import MyMap from '../components/MyMap';
-import MapView from 'react-native-maps';
+import Modal from 'react-native-modal';
+
+import { Title } from 'react-native-paper';
+import FormInput from '../components/FormInput';
+import FormButton from '../components/FormButton';
+
+
+import ListItem from '../components/ListItem';
+
+
 
 class Accueil extends React.Component {
 
@@ -64,18 +73,58 @@ class Accueil extends React.Component {
           flatListProps={{
             style: styles.flatlist,
             data: data,
-            renderItem:  ({item}) => this.renderItem(item),
-            keyExtractor: item => item.id,
-            showsVerticalScrollIndicator: false,
+            keyExtractor: (item) => item.id.toString(),
+            renderItem: ({item}) => (
+              <ListItem
+                item={item}
+                nav={this.props.navigation}
+              />
+            ),
           }}
           modalHeight={500}
           HeaderComponent={
             <View>
-              <TextInput style={styles.search} placeholder='Ceci est TextInput'/>
+              <TextInput style={styles.search} placeholder='Ceci est un TextInput'/>
             </View>
           }
         />
+          
+
+            <Modal isVisible={false} style={{backgroundColor: "white", borderRadius: 10}}>
+              <View style={{flex: 1, justifyContent:'center', alignItems:'center'}}>
+                <View style={styles.container1}>
+                  <Title style={styles.titleText}>Welcome to Chat app</Title>
+                  <FormInput
+                    labelName='Email'
+                    
+                    autoCapitalize='none'
+                    
+                  />
+                  <FormInput
+                    labelName='Password'
+                    
+                    secureTextEntry={true}
+                    
+                  />
+                  <FormButton
+                    title='Login'
+                    modeValue='contained'
+                    labelStyle={styles.loginButtonLabel}
+                  />
+                  <FormButton
+                    title='New user? Join here'
+                    modeValue='text'
+                    uppercase={false}
+                    labelStyle={styles.navButtonText}
+                  />
+                </View>
+              </View>
+            </Modal>
+          
         
+
+
+
       </SafeAreaView>
     )
   }
@@ -114,6 +163,24 @@ const styles = StyleSheet.create({
   },
   nomArbreItem: {
     fontSize: 20
+  },
+
+
+  container1: {
+    backgroundColor: 'white',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  titleText: {
+    fontSize: 24,
+    marginBottom: 10
+  },
+  loginButtonLabel: {
+    fontSize: 22
+  },
+  navButtonText: {
+    fontSize: 16
   }
 })
 
