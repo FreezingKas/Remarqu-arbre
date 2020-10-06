@@ -15,7 +15,7 @@ class ListItem extends React.Component {
             source={this.props.item.photo}
           />
           <View style={styles.textArbreItem}>
-            <Text style={styles.nomArbreItem}>{this.props.item.nom}</Text>
+            <Text style={styles.nomArbreItem}>{this.props.item.nom} - {this.props.item.ville}</Text>
             <Text>{this.props.item.date}</Text>
           </View>
         </TouchableOpacity>
