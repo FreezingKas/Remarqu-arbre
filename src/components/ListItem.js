@@ -9,7 +9,7 @@ class ListItem extends React.Component {
   render() {
     return (
       <View style={styles.itemArbre}>
-        <TouchableOpacity style={{flexDirection: 'row'}} onPress={() => this.props.nav.navigate("ArbreItem")}>
+        <TouchableOpacity style={{flexDirection: 'row'}} onPress={() => this.props.nav.navigate("ArbreItem", {id : this.props.item.id})}>
           <Image
             style={styles.image}
             source={this.props.item.photo}

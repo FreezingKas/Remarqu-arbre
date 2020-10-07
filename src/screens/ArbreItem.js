@@ -1,11 +1,47 @@
 import React from 'react';
-import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Image, Dimensions, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Image, Dimensions, ScrollView, ActivityIndicator } from 'react-native';
+import {getArbreDetailFromData} from '../helpers/Arbre'
 
 class ArbreItem extends React.Component {
 
-  render() {
-    return (
-      <SafeAreaView style={styles.container}>
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      arbre: undefined,
+      isLoading: false
+    }
+  }
+
+  _updateNavigationParams() {
+    this.props.navigation.setParams({
+      arbre: this.state.arbre
+    })
+  }
+
+  componentDidMount() {
+    this.setState({ isLoading: true })
+    data = getArbreDetailFromData(this.props.navigation.state.params.id)
+    this.setState({
+      arbre: data,
+      isLoading: false
+    }, () => { this._updateNavigationParams() })
+  }
+
+  _displayLoading() {
+    if (this.state.isLoading) {
+      return (
+        <View style={styles.loading_container}>
+          <ActivityIndicator size='large' />
+        </View>
+      )
+    }
+  }
+
+  _displayArbre() {
+    if(this.state.arbre != undefined) {
+      console.log("arbre : " + this.state.arbre.nom)
+      return(
         <ScrollView>
           <View style={{flex:1, flexDirection: 'row', alignItems: 'center', marginBottom: 10}}>
             <TouchableOpacity onPress = {() => this.props.navigation.navigate("Accueil")}>
@@ -14,7 +50,7 @@ class ArbreItem extends React.Component {
                 style = {styles.goBack_image}
               />
             </TouchableOpacity>
-            <Text style={styles.title_text}>NOM DE L'ARBRE</Text>
+            <Text style={styles.title_text}>{this.state.arbre.nom}</Text>
           </View>
           <View style={{alignItems: 'center'}}>
             <Image
@@ -23,17 +59,27 @@ class ArbreItem extends React.Component {
             />
           </View>
           <Text style={styles.section_text}>INFORMATIONS</Text>
-          <Text style={styles.default_text}>Essence : ...</Text>
-          <Text style={styles.default_text}>Taille : ...</Text>
-          <Text style={styles.default_text}>Âge : ...</Text>
+          <Text style={styles.default_text}>Lieu : {this.state.arbre.ville}</Text>
+          <Text style={styles.default_text}>Essence : {this.state.arbre.essence}</Text>
+          <Text style={styles.default_text}>Taille : {this.state.arbre.taille}</Text>
+          <Text style={styles.default_text}>Âge : {this.state.arbre.age}</Text>
           <Text style={styles.section_text}>HISTOIRE</Text>
-          <Text style={styles.default_text}>Histoire de l'arbre...</Text>
+          <Text style={styles.default_text}>{this.state.arbre.histoire}</Text>
           <Text style={styles.section_text}>LIEN EXTERNE</Text>
-          <Text style={styles.default_text}>Lien vers un site externe...</Text>
+          <Text style={styles.default_text}>{this.state.arbre.site}</Text>
           <Text style={styles.section_text}>VIDÉO</Text>
-          <Text style={styles.default_text}>Lien vers une vidéo externe...</Text>
+          <Text style={styles.default_text}>{this.state.arbre.video}</Text>
         </ScrollView>
-      </SafeAreaView>
+      )
+    }
+  }
+
+  render() {
+    return (
+      <View style={styles.main_container}>
+        {this._displayLoading()}
+        {this._displayArbre()}
+      </View>
     )
   }
 }
@@ -43,6 +89,11 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 20,
     marginLeft: 5
+  },
+  loading_container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   title_text: {
     fontSize: 30,

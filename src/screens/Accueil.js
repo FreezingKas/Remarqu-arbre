@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, SafeAreaView, Button, TextInput, Image } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Button, TextInput, Image, StatusBar } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {Modalize} from 'react-native-modalize';
 import { Title } from 'react-native-paper';
@@ -57,7 +57,7 @@ class Accueil extends React.Component {
             </View>
           }
         />
-        
+
         <Modal isVisible={false} style={{backgroundColor: "white", borderRadius: 10}}>
           <View style={{flex: 1, justifyContent:'center', alignItems:'center'}}>
             <View style={styles.container1}>
