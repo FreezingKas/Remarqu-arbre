@@ -26,6 +26,7 @@ class Accueil extends React.Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
+        <StatusBar hidden={true} />
         <MyMap></MyMap>
         <Button
           onPress={() => this.onOpen()}
@@ -56,6 +57,7 @@ class Accueil extends React.Component {
             </View>
           }
         />
+        
         <Modal isVisible={false} style={{backgroundColor: "white", borderRadius: 10}}>
           <View style={{flex: 1, justifyContent:'center', alignItems:'center'}}>
             <View style={styles.container1}>
@@ -69,7 +71,7 @@ class Accueil extends React.Component {
                 secureTextEntry={true}
               />
               <FormButton
-                title='Connection'
+                title='Connexion'
                 modeValue='contained'
                 labelStyle={styles.loginButtonLabel}
               />
