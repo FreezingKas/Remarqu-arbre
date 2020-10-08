@@ -25,17 +25,15 @@ class Accueil extends React.Component {
 
   render() {
     return (
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         <StatusBar hidden={true} />
         <MyMap></MyMap>
-        <Button
-          onPress={() => this.onOpen()}
-          title="Historique"
-        />
-        <Button
-          onPress={() => this.props.navigation.navigate("Scan")}
-          title="Scan"
-        />
+        <TouchableOpacity onPress={() => this.onOpen()}>
+          <Text style={{backgroundColor: 'gray', padding: 5}}>Historique</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate("Scan")}>
+          <Text style={{backgroundColor: 'white', padding: 5}}>Scan</Text>
+        </TouchableOpacity>
         <Modalize
           ref={modalizeRef}
           flatListProps={{
@@ -74,17 +72,19 @@ class Accueil extends React.Component {
                 title='Connexion'
                 modeValue='contained'
                 labelStyle={styles.loginButtonLabel}
+                onPress={() => console.log("Connexion")}
               />
               <FormButton
                 title='Nouveau membre ? Inscris-toi'
                 modeValue='text'
                 uppercase={false}
                 labelStyle={styles.navButtonText}
+                onPress={() => console.log("Inscription")}
               />
             </View>
           </View>
         </Modal>
-      </SafeAreaView>
+      </View>
     )
   }
 }
