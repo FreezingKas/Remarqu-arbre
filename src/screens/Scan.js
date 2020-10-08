@@ -72,10 +72,11 @@ class Scan extends React.Component {
         />
         <FormButton
           title='Annuler'
-          modeValue='contained'
+          modeValue='text'
           labelStyle={styles.loginButtonLabel}
           onPress={() => this.props.navigation.navigate("Accueil")}
           color={this.state.colorButton}
+          
         />
       </SafeAreaView>
     )

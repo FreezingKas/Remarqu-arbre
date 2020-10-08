@@ -4,7 +4,7 @@ import Accueil from '../Screens/Accueil';
 import ArbreItem from '../Screens/ArbreItem';
 import Historique from '../Screens/Historique';
 import Scan from '../Screens/Scan';
-import LoginScreen from '../Screens/LoginScreen';
+
 
 const SearchStackNavigator = createStackNavigator({
   Accueil: {
@@ -27,12 +27,6 @@ const SearchStackNavigator = createStackNavigator({
   },
   Scan: {
     screen: Scan,
-    navigationOptions: {
-      headerShown: false
-    }
-  },
-  LoginScreen: {
-    screen: LoginScreen,
     navigationOptions: {
       headerShown: false
     }
