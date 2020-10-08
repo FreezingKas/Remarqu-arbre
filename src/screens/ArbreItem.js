@@ -43,7 +43,7 @@ class ArbreItem extends React.Component {
       return(
         <ScrollView style={{marginLeft: 5, marginRight: 5}}>
           <View style={{flex:1, flexDirection: 'row', alignItems: 'center', marginBottom: 10}}>
-            <TouchableOpacity onPress = {() => this.props.navigation.navigate("Accueil")}>
+            <TouchableOpacity onPress = {() => this.props.navigation.navigate("Accueil")} style={styles.button}>
               <Image
                 source = {require('../Ressources/Images/goBack.png')}
                 style = {styles.goBack_image}
@@ -52,10 +52,12 @@ class ArbreItem extends React.Component {
             <Text style={styles.title_text}>{this.state.arbre.nom} de {this.state.arbre.ville}</Text>
           </View>
           <View style={{alignItems: 'center'}}>
+            <View style={{elevation: 24, width: Dimensions.get('window').width/1.5,height: Dimensions.get('window').width/1.5,borderRadius: Dimensions.get('window').width/2 }}>
             <Image
               source= {require('../Ressources/Images/arbre.jpg')}
               style={styles.arbre_image}
             />
+            </View>
           </View>
           <Text style={styles.section_text}>INFORMATIONS</Text>
           <Text style={styles.default_text}>Lieu : {this.state.arbre.ville}</Text>
@@ -86,9 +88,39 @@ class ArbreItem extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  button: {
+    top: 0,
+    left: 0,
+    marginTop: 15,
+    marginLeft: 5,
+    marginBottom: 15,
+
+    
+    padding: 5,
+
+    height:54,
+    width:54,
+
+    borderRadius:27,
+
+    backgroundColor:'#FFF',
+
+    justifyContent:'center',
+    alignItems:'center',
+
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 5,
+      height: 12,
+    },
+    shadowOpacity: 0.98,
+    shadowRadius: 18.00,
+
+    elevation: 38,
+  },
   container: {
     flex: 1,
-    marginTop: 20
+    
   },
   loading_container: {
     position: 'absolute',
@@ -102,7 +134,7 @@ const styles = StyleSheet.create({
   title_text: {
     fontSize: 30,
     fontWeight: 'bold',
-    marginLeft: 20,
+    marginLeft: 15,
     width: '86%'
   },
   goBack_image: {
@@ -115,7 +147,7 @@ const styles = StyleSheet.create({
     borderRadius: Dimensions.get('window').width/2,
     borderColor: '#000',
     borderWidth: 3,
-    marginBottom: 15
+    marginBottom: 15,
   },
   section_text: {
     fontSize: 22,
