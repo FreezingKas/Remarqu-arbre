@@ -30,10 +30,10 @@ class Accueil extends React.Component {
         
         <MyMap></MyMap>
         <TouchableOpacity onPress={() => this.onOpen()}>
-          <Text style={{backgroundColor: 'gray', padding: 5}}>Historique</Text>
+          <Image style={{backgroundColor: '#FFF', margin:10, height: 48, width: 48, borderRadius: 24}} source={require('../Ressources/Images/burger.png')}/>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => this.props.navigation.navigate("Scan")}>
-          <Text style={{backgroundColor: 'white', padding: 5}}>Scan</Text>
+          <Text style={{backgroundColor: 'white', margin:10, height: 48, width: 48, borderRadius: 16}}>S</Text>
         </TouchableOpacity>
         <Modalize
           ref={modalizeRef}
