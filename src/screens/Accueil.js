@@ -107,7 +107,7 @@ class Accueil extends React.Component {
           }
         />
 
-        <Modal isVisible={this.state.isModalVisible} style={{backgroundColor: "white", marginTop: '40%', borderRadius: 10, maxHeight: Dimensions.get('window').height/2}} onBackdropPress={() => this.toggleModal(false)}>
+        <Modal isVisible={this.state.isModalVisible} useNativeDriver={true} style={{backgroundColor: "white", marginTop: '40%', borderRadius: 10, maxHeight: Dimensions.get('window').height/2}} onBackdropPress={() => this.toggleModal(false)}>
           <View style={{flex: 1, justifyContent:'center', alignItems:'center'}}>
             <View style={styles.container1}>
               <Title style={styles.titleText}>Bienvenue !</Title>
