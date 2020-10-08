@@ -17,7 +17,7 @@ class Scan extends React.Component {
       colorButton: 'green',
 
       color: {
-        backgroundColor: '#fff'
+        backgroundColor: 'white'
       }
     }
   }
@@ -47,7 +47,7 @@ class Scan extends React.Component {
         colorButton: 'green',
 
         color: {
-          backgroundColor: '#fff'
+          backgroundColor: 'white'
         }
       }));
     }
@@ -87,18 +87,18 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 32,
     fontWeight: 'bold',
-    color: '#000',
+    color: 'black',
     marginBottom: 20
   },
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#fff'
+    backgroundColor: 'white'
   },
   scan_image: {
-    width: Dimensions.get('window').width - 40,
-    height: Dimensions.get('window').width -40,
+    width: Dimensions.get('window').width/1.10,
+    height: Dimensions.get('window').width/1.10,
     marginBottom: 20
   },
   description_text: {
@@ -106,22 +106,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#444',
     marginBottom: 20
-  },
-  bottom_button: {
-    backgroundColor: '#CCC',
-    borderColor: '#000',
-    borderWidth: 2,
-    borderRadius: 8,
-    paddingTop: 5,
-    paddingLeft: 50,
-    paddingBottom: 5,
-    paddingRight: 50,
-    marginBottom: 10
-  },
-  bottom_buton_text: {
-    textAlign: 'center',
-    color: '#555',
-    fontSize: 18
   },
   loginButtonLabel: {
     fontSize: 22
