@@ -14,7 +14,13 @@ export default class MyMap extends React.Component {
                 <MapView
                     style={styles.mapStyle}
                     ref={map => this._map = map}
-                    minZoomLevel={5}>
+                    minZoomLevel={5}
+                    initialRegion={{
+                      latitude: 48.4,
+                      longitude: 0.0333,
+                      latitudeDelta: 0.0922,
+                      longitudeDelta: 0.0421,
+                    }}>
                 </MapView>
             </View>
         )

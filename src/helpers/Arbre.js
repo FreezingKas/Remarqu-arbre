@@ -1,6 +1,6 @@
 export default data = [
     { nom: "Chêne",
-      ville:"Beuvardes (2)",
+      ville:"Beuvardes",
       photo: require('../Ressources/Images/arbre.jpg'),
       essence : "Chêne",
       age: 700,
@@ -12,11 +12,11 @@ export default data = [
       id: 0},
 
     { nom: "Arbres du parc Napoléon III",
-      ville:"Vichy (3)",
+      ville:"Vichy",
       photo: require('../Ressources/Images/arbre.jpg'),
       essence : "65 espèces différentes",
       age: 160,
-      taille: 13 + "hectares",
+      taille: 13 + " hectares",
       histoire: "Ce vaste espace vert donne un aspect original à la ville en faisant le lien entre la frange urbaine et la nature sauvage des rives de l'Allier. Aménagé par Jean-François Radoult de Lafoss, ce parc s'inspire largement des influences romantiques de la vague anglaise très en vogue à l'époque Il est dans la même veine que le Bois de Boulogne, le Bois de Vincennes, les Buttes Chaumont et le parc Montsouris à Paris. Le Parc Napoléon est la partie la plus ancienne des Parcs de l'Allier correspondant au parc Napoléon III. Il a reçu le label Arbre Remarquable de France en février 2010.",
       site: "https://www.aujardin.info/fiches/parc-napoleon-vichy.php",
       video: "",
@@ -24,7 +24,7 @@ export default data = [
       id: 1},
 
     { nom: "Caroubiers",
-      ville:"Nice (6)",
+      ville:"Nice",
       photo: require('../Ressources/Images/arbre.jpg'),
       essence : "Caroubiers",
       age: 520,
@@ -36,7 +36,7 @@ export default data = [
       id: 2},
 
     { nom: "Chêne",
-      ville:"Tombeboeuf (47)",
+      ville:"Tombeboeuf",
       photo: require('../Ressources/Images/arbre.jpg'),
       essence : "Chêne",
       age: 350,
@@ -48,7 +48,7 @@ export default data = [
       id: 3},
 
     { nom: "Douglas géants",
-      ville:"Ribeauvillé (68)",
+      ville:"Ribeauvillé",
       photo: require('../Ressources/Images/arbre.jpg'),
       essence : "Douglas géants",
       age: 125,
@@ -60,7 +60,7 @@ export default data = [
       id: 4},
 
     { nom: "Tilleul",
-      ville:"St Dié-des-Vosges (88)",
+      ville:"St Dié-des-Vosges",
       photo: require('../Ressources/Images/arbre.jpg'),
       essence : "Tilleul",
       age: 700,

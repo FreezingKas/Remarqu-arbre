@@ -17,23 +17,39 @@ class Accueil extends React.Component {
   constructor(props) {
     super(props)
     modalizeRef = React.createRef()
+
+    this.state = {
+      isModalVisible : false
+    }
   }
 
   onOpen = () => {
     modalizeRef.current?.open();
   };
 
+  toggleModal = () =>{
+    this.setState({
+    isModalVisible:!this.state.isModalVisible
+    })
+  };
+
   render() {
     return (
       <View style={styles.container}>
         <StatusBar hidden={true} />
-        
+
         <MyMap></MyMap>
-        <TouchableOpacity onPress={() => this.onOpen()}>
-          <Image style={{backgroundColor: '#FFF', margin:10, height: 48, width: 48, borderRadius: 24}} source={require('../Ressources/Images/burger.png')}/>
+        <TouchableOpacity onPress={() => console.log("Affichage (soon) d'un menu.")}>
+          <Image style={{backgroundColor: '#FFF', margin:7, height: 48, width: 48, borderRadius: 24}} source={require('../Ressources/Images/burger.png')}/>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => this.props.navigation.navigate("Scan")}>
-          <Text style={{backgroundColor: 'white', margin:10, height: 48, width: 48, borderRadius: 16}}>S</Text>
+          <Image style={{backgroundColor: '#FFF', margin:7, height: 48, width: 48, borderRadius: 24}} source={require('../Ressources/Images/scan.png')}/>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => this.onOpen()}>
+          <Image style={{backgroundColor: '#FFF', margin:7, height: 48, width: 48, borderRadius: 24}} source={require('../Ressources/Images/history.png')}/>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => this.toggleModal()}>
+          <Image style={{backgroundColor: '#FFF', margin:7, height: 48, width: 48, borderRadius: 24}} source={require('../Ressources/Images/login.png')}/>
         </TouchableOpacity>
         <Modalize
           ref={modalizeRef}
@@ -57,14 +73,14 @@ class Accueil extends React.Component {
           }
         />
 
-        <Modal isVisible={true} style={{backgroundColor: "white", borderRadius: 10}}>
+        <Modal isVisible={this.state.isModalVisible} style={{backgroundColor: "white", borderRadius: 10}}>
           <View style={{flex: 1, justifyContent:'center', alignItems:'center'}}>
             <View style={styles.container1}>
-              <Title style={styles.titleText}>Bienvenue dans ScanArbre</Title>
+              <Title style={styles.titleText}>Bienvenue !</Title>
               <FormInput
                 labelName='Email'
                 autoCapitalize='none'
-                
+
                 theme={{ colors: { primary: 'green',underlineColor:'green',}}}
                 underlineColor={('green')}
               />
@@ -90,7 +106,7 @@ class Accueil extends React.Component {
                 color={'green'}
 
               />
-              <Button icon="arrow-down-thick" color={'green'} size={32} onPress={()=>console.log('c rien c la rue')} style={{height:32, width: 32}}/>
+              <Button icon="arrow-down-thick" color={'green'} size={32} onPress={()=> this.toggleModal()} style={{height:32, width: 32}}/>
             </View>
           </View>
         </Modal>
