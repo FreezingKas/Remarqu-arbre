@@ -27,6 +27,7 @@ class Accueil extends React.Component {
     return (
       <View style={styles.container}>
         <StatusBar hidden={true} />
+        
         <MyMap></MyMap>
         <TouchableOpacity onPress={() => this.onOpen()}>
           <Text style={{backgroundColor: 'gray', padding: 5}}>Historique</Text>
@@ -91,7 +92,6 @@ class Accueil extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop:20,
     flex: 1,
     backgroundColor: '#F5FCFF',
   },
