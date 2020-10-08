@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, SafeAreaView, TextInput, Image, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, TextInput, Image, StatusBar, Dimensions } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {Modalize} from 'react-native-modalize';
 import { Title, Button } from 'react-native-paper';
@@ -107,7 +107,7 @@ class Accueil extends React.Component {
           }
         />
 
-        <Modal isVisible={this.state.isModalVisible} style={{backgroundColor: "white", borderRadius: 10}}>
+        <Modal isVisible={this.state.isModalVisible} style={{backgroundColor: "white", borderRadius: 10, maxHeight: Dimensions.get('window').height/2}}>
           <View style={{flex: 1, justifyContent:'center', alignItems:'center'}}>
             <View style={styles.container1}>
               <Title style={styles.titleText}>Bienvenue !</Title>
