@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, SafeAreaView, TextInput, Image, StatusBar, Dimensions } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {Modalize} from 'react-native-modalize';
-import { Title, IconButton } from 'react-native-paper';
+import { Title, IconButton, Menu, Divider, Provider } from 'react-native-paper';
 import Modal from 'react-native-modal';
 
 import data from '../helpers/Arbre';
@@ -11,6 +11,7 @@ import MyMap from '../Components/MyMap';
 import FormInput from '../Components/FormInput';
 import FormButton from '../Components/FormButton';
 import ListItem from '../Components/ListItem';
+
 
 class Accueil extends React.Component {
 
@@ -21,9 +22,6 @@ class Accueil extends React.Component {
     this.state = {
       isModalVisible : false,
       isMenuVisible: false,
-      menu: {
-        opacity: 0
-      }
     }
   }
 
@@ -37,30 +35,9 @@ class Accueil extends React.Component {
     })
   };
 
-  _toggleMenu() {
-    if(!this.state.isMenuVisible) {
-      this.setState((state) => ({
-        isMenuVisible: true,
-        menu: {
-          opacity: 100,
-          backgroundColor: '#ddd',
-          width: 70,
-          borderRadius: 20,
-          borderColor: 'black',
-          borderWidth: 2,
-          marginLeft: 1
-        }
-      }));
-    }
-    else {
-      this.setState((state) => ({
-        isMenuVisible: false,
-        menu: {
-          opacity: 0
-        }
-      }));
-    }
-  }
+  openMenu = () =>  this.setState({isMenuVisible: true});
+
+  closeMenu = () => this.setState({isMenuVisible: false});
 
   render() {
     return (
@@ -69,21 +46,45 @@ class Accueil extends React.Component {
 
         <MyMap></MyMap>
 
-        <TouchableOpacity onPress={() => this._toggleMenu()} style={styles.button}>
-          <Image style={styles.imageButton} source={require('../Ressources/Images/burger.png')}/>
-        </TouchableOpacity>
+        
 
-        <View style={this.state.menu}>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate("Scan")}>
-            <Image style={{backgroundColor: '#FFF', margin:7, height: 48, width: 48, borderRadius: 24}} source={require('../Ressources/Images/scan.png')}/>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.onOpen()}>
-            <Image style={{backgroundColor: '#FFF', margin:7, height: 48, width: 48, borderRadius: 24}} source={require('../Ressources/Images/history.png')}/>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.toggleModal()}>
-            <Image style={{backgroundColor: '#FFF', margin:7, height: 48, width: 48, borderRadius: 24}} source={require('../Ressources/Images/login.png')}/>
-          </TouchableOpacity>
-        </View>
+        <Provider>
+          <View
+            style={{
+              flexDirection: 'row',
+            }}>
+            <Menu
+              visible={this.state.isMenuVisible}
+              onDismiss={this.closeMenu}
+              anchor={<TouchableOpacity onPress={() => this.openMenu()} style={styles.button}>
+                        <Image style={styles.imageButton} source={require('../Ressources/Images/burger.png')}/>
+                      </TouchableOpacity>}
+              style={{marginTop: 35, marginLeft:5}}>
+
+              <Menu.Item icon={() => (
+                          <Image
+                            source={require('../Ressources/Images/scan-helper.png')}
+                            style={{ width:20, height:20}}
+                          />
+                        )} 
+                        onPress={() => {this.props.navigation.navigate("Scan")}} title="Scan" />
+              <Menu.Item icon={() => (
+                          <Image
+                            source={require('../Ressources/Images/history.png')}
+                            style={{ width:20, height:20}}
+                          />
+                        )} onPress={() => {this.onOpen()}} title="Historique" />
+              <Divider />
+              <Menu.Item icon={() => (
+                          <Image
+                            source={require('../Ressources/Images/login.png')}
+                            style={{ width:20, height:20}}
+                          />
+                        )}
+                         onPress={() => {this.toggleModal()}} title="Connexion" />
+            </Menu>
+          </View>
+        </Provider>
 
         <Modalize
           ref={modalizeRef}
