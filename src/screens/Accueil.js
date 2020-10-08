@@ -102,12 +102,12 @@ class Accueil extends React.Component {
           HeaderComponent={
             <View>
               <Text style={styles.historique}>Historique</Text>
-              <TextInput style={styles.search} placeholder='Ceci est un TextInput'/>
+              <TextInput style={styles.search} placeholder='Cherchez un arbre !'/>
             </View>
           }
         />
 
-        <Modal isVisible={this.state.isModalVisible} style={{backgroundColor: "white", borderRadius: 10, maxHeight: Dimensions.get('window').height/2}}>
+        <Modal isVisible={this.state.isModalVisible} style={{backgroundColor: "white", marginTop: '40%', borderRadius: 10, maxHeight: Dimensions.get('window').height/2}} onBackdropPress={() => this.toggleModal(false)}>
           <View style={{flex: 1, justifyContent:'center', alignItems:'center'}}>
             <View style={styles.container1}>
               <Title style={styles.titleText}>Bienvenue !</Title>
