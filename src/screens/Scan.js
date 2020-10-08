@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View, SafeAreaView, Dimensions, Image, TouchableOpacity } from 'react-native';
 
+import FormButton from '../Components/FormButton';
+
 class Scan extends React.Component {
 
   constructor(props) {
@@ -12,6 +14,7 @@ class Scan extends React.Component {
       description_text: "Approchez votre téléphone de la puce sur l'arbre.",
       try_button: "SCANNER",
       error: false,
+      colorButton: 'green',
 
       color: {
         backgroundColor: '#fff'
@@ -27,6 +30,7 @@ class Scan extends React.Component {
         description_text: "Réessayer d'approchez votre téléphone de la puce sur l'arbre.",
         try_button: "RÉESAYER",
         error: true,
+        colorButton: 'red',
 
         color: {
           backgroundColor: '#FFC2C2'
@@ -40,6 +44,7 @@ class Scan extends React.Component {
         description_text: "Approchez votre téléphone de la puce sur l'arbre.",
         try_button: "SCANNER",
         error: false,
+        colorButton: 'green',
 
         color: {
           backgroundColor: '#fff'
@@ -58,18 +63,20 @@ class Scan extends React.Component {
           style={styles.scan_image}
         />
         <Text style={styles.description_text}>{this.state.description_text}</Text>
-        <TouchableOpacity
-          style={styles.bottom_button}
+        <FormButton
+          title={this.state.try_button}
+          modeValue='contained'
+          labelStyle={styles.loginButtonLabel}
           onPress={() => this._changeToViewScan()}
-        >
-          <Text style={styles.bottom_buton_text}>{this.state.try_button}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.bottom_button}
-          onPress={() => this.props.navigation.goBack()}
-        >
-          <Text style={styles.bottom_buton_text}>ANNULER</Text>
-        </TouchableOpacity>
+          color={this.state.colorButton}
+        />
+        <FormButton
+          title='Annuler'
+          modeValue='contained'
+          labelStyle={styles.loginButtonLabel}
+          onPress={() => this.props.navigation.navigate("Accueil")}
+          color={this.state.colorButton}
+        />
       </SafeAreaView>
     )
   }
@@ -115,6 +122,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#555',
     fontSize: 18
+  },
+  loginButtonLabel: {
+    fontSize: 22
   }
 });
 
