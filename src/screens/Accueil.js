@@ -140,7 +140,7 @@ class Accueil extends React.Component {
                 color={'green'}
 
               />
-              <IconButton icon="arrow-down-thick" color={'green'} size={32} onPress={()=> this.toggleModal()}/>
+              <IconButton icon="arrow-down-thick" color={'green'} size={30} onPress={()=> this.toggleModal()}/>
             </View>
           </View>
         </Modal>
