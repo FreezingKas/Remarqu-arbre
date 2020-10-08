@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Text, Image, TouchableOpacity, Dimensions } from 'react-native'
 
 class ListItem extends React.Component {
   constructor(props) {
@@ -53,7 +53,8 @@ const styles = StyleSheet.create({
   },
   textArbreItem: {
     justifyContent: 'center',
-    marginLeft: 5
+    marginLeft: 5,
+    width: '80%'
   },
   nomArbreItem: {
     fontSize: 20
