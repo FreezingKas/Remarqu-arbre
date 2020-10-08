@@ -73,6 +73,5 @@ export default data = [
 ]
 
 export function getArbreDetailFromData(id) {
-  console.log(data[id])
   return data[id]
 }

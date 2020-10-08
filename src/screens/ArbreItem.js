@@ -21,9 +21,8 @@ class ArbreItem extends React.Component {
 
   componentDidMount() {
     this.setState({ isLoading: true })
-    data = getArbreDetailFromData(this.props.navigation.state.params.id)
     this.setState({
-      arbre: data,
+      arbre: getArbreDetailFromData(this.props.navigation.state.params.id),
       isLoading: false
     }, () => { this._updateNavigationParams() })
   }
@@ -40,9 +39,9 @@ class ArbreItem extends React.Component {
 
   _displayArbre() {
     if(this.state.arbre != undefined) {
-      console.log("arbre : " + this.state.arbre.nom)
+      console.log("Affichage de l'arbre avec l'id : " + this.state.arbre.id)
       return(
-        <ScrollView>
+        <ScrollView style={{marginLeft: 5, marginRight: 5}}>
           <View style={{flex:1, flexDirection: 'row', alignItems: 'center', marginBottom: 10}}>
             <TouchableOpacity onPress = {() => this.props.navigation.navigate("Accueil")}>
               <Image
@@ -87,8 +86,7 @@ class ArbreItem extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 20,
-    marginLeft: 5
+    marginTop: 20
   },
   loading_container: {
     flex: 1,
