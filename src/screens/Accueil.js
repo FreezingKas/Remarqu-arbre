@@ -155,6 +155,7 @@ const styles = StyleSheet.create({
     left: 0,
     marginTop: 15,
     marginLeft: 15,
+    marginBottom: 15,
 
     
     padding: 5,
