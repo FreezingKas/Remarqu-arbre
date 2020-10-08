@@ -19,7 +19,11 @@ class Accueil extends React.Component {
     modalizeRef = React.createRef()
 
     this.state = {
-      isModalVisible : false
+      isModalVisible : false,
+      isMenuVisible: false,
+      menu: {
+        opacity: 0
+      }
     }
   }
 
@@ -33,24 +37,54 @@ class Accueil extends React.Component {
     })
   };
 
+  _toggleMenu() {
+    if(!this.state.isMenuVisible) {
+      this.setState((state) => ({
+        isMenuVisible: true,
+        menu: {
+          opacity: 100,
+          backgroundColor: '#ddd',
+          width: 70,
+          borderRadius: 20,
+          borderColor: 'black',
+          borderWidth: 2,
+          marginLeft: 1
+        }
+      }));
+    }
+    else {
+      this.setState((state) => ({
+        isMenuVisible: false,
+        menu: {
+          opacity: 0
+        }
+      }));
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <StatusBar hidden={true} />
 
         <MyMap></MyMap>
-        <TouchableOpacity onPress={() => console.log("Affichage (soon) d'un menu.")}>
+
+        <TouchableOpacity onPress={() => this._toggleMenu()}>
           <Image style={{backgroundColor: '#FFF', margin:7, height: 48, width: 48, borderRadius: 24}} source={require('../Ressources/Images/burger.png')}/>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate("Scan")}>
-          <Image style={{backgroundColor: '#FFF', margin:7, height: 48, width: 48, borderRadius: 24}} source={require('../Ressources/Images/scan.png')}/>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => this.onOpen()}>
-          <Image style={{backgroundColor: '#FFF', margin:7, height: 48, width: 48, borderRadius: 24}} source={require('../Ressources/Images/history.png')}/>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => this.toggleModal()}>
-          <Image style={{backgroundColor: '#FFF', margin:7, height: 48, width: 48, borderRadius: 24}} source={require('../Ressources/Images/login.png')}/>
-        </TouchableOpacity>
+
+        <View style={this.state.menu}>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate("Scan")}>
+            <Image style={{backgroundColor: '#FFF', margin:7, height: 48, width: 48, borderRadius: 24}} source={require('../Ressources/Images/scan.png')}/>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => this.onOpen()}>
+            <Image style={{backgroundColor: '#FFF', margin:7, height: 48, width: 48, borderRadius: 24}} source={require('../Ressources/Images/history.png')}/>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => this.toggleModal()}>
+            <Image style={{backgroundColor: '#FFF', margin:7, height: 48, width: 48, borderRadius: 24}} source={require('../Ressources/Images/login.png')}/>
+          </TouchableOpacity>
+        </View>
+
         <Modalize
           ref={modalizeRef}
           flatListProps={{

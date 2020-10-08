@@ -12,14 +12,14 @@ class Scan extends React.Component {
       description_text: "Approchez votre téléphone de la puce sur l'arbre.",
       try_button: "SCANNER",
       error: false,
-      
+
       color: {
         backgroundColor: '#fff'
       }
     }
   }
 
-  __changeToViewScan(props) {
+  _changeToViewScan() {
     if(!this.state.error) {
       this.setState((state) => ({
         uri: require('../Ressources/Images/errorScan.png'),
@@ -60,7 +60,7 @@ class Scan extends React.Component {
         <Text style={styles.description_text}>{this.state.description_text}</Text>
         <TouchableOpacity
           style={styles.bottom_button}
-          onPress={() => this.__changeToViewScan(this.props)}
+          onPress={() => this._changeToViewScan()}
         >
           <Text style={styles.bottom_buton_text}>{this.state.try_button}</Text>
         </TouchableOpacity>

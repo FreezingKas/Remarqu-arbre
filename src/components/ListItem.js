@@ -39,7 +39,9 @@ const styles = StyleSheet.create({
   image: {
     width: 64,
     height: 64,
-    borderRadius: 32
+    borderRadius: 32,
+    borderWidth: 1,
+    borderColor: 'black'
   },
   itemArbre: {
     marginTop: 5,

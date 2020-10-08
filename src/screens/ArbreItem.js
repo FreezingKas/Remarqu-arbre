@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Image, Dimensions, ScrollView, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, Linking, TouchableOpacity, Image, Dimensions, ScrollView, ActivityIndicator } from 'react-native';
 import {getArbreDetailFromData} from '../helpers/Arbre'
 
 class ArbreItem extends React.Component {
@@ -49,7 +49,7 @@ class ArbreItem extends React.Component {
                 style = {styles.goBack_image}
               />
             </TouchableOpacity>
-            <Text style={styles.title_text}>{this.state.arbre.nom}</Text>
+            <Text style={styles.title_text}>{this.state.arbre.nom} de {this.state.arbre.ville}</Text>
           </View>
           <View style={{alignItems: 'center'}}>
             <Image
@@ -61,11 +61,13 @@ class ArbreItem extends React.Component {
           <Text style={styles.default_text}>Lieu : {this.state.arbre.ville}</Text>
           <Text style={styles.default_text}>Essence : {this.state.arbre.essence}</Text>
           <Text style={styles.default_text}>Taille : {this.state.arbre.taille}</Text>
-          <Text style={styles.default_text}>Âge : {this.state.arbre.age}</Text>
+          <Text style={styles.default_text}>Âge : {this.state.arbre.age} ans</Text>
           <Text style={styles.section_text}>HISTOIRE</Text>
           <Text style={styles.default_text}>{this.state.arbre.histoire}</Text>
           <Text style={styles.section_text}>LIEN EXTERNE</Text>
-          <Text style={styles.default_text}>{this.state.arbre.site}</Text>
+          <TouchableOpacity onPress={() => Linking.openURL(this.state.arbre.site)}>
+            <Text style={styles.lien_text}>Site externe</Text>
+          </TouchableOpacity>
           <Text style={styles.section_text}>VIDÉO</Text>
           <Text style={styles.default_text}>{this.state.arbre.video}</Text>
         </ScrollView>
@@ -120,7 +122,13 @@ const styles = StyleSheet.create({
   },
   default_text: {
     fontSize: 16,
-    color: '#444'
+    color: '#444',
+    textAlign: 'justify'
+  },
+  lien_text: {
+    fontSize: 16,
+    color: '#606AA5',
+    textDecorationLine: 'underline'
   }
 });
 
