@@ -27,6 +27,7 @@ class Accueil extends React.Component {
     return (
       <SafeAreaView style={styles.container}>
         <StatusBar hidden={true} />
+        
         <MyMap></MyMap>
         <Button
           onPress={() => this.onOpen()}
@@ -91,7 +92,6 @@ class Accueil extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop:20,
     flex: 1,
     backgroundColor: '#F5FCFF',
   },
