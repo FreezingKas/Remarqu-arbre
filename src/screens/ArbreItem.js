@@ -39,7 +39,7 @@ class ArbreItem extends React.Component {
 
   _displayArbre() {
     if(this.state.arbre != undefined) {
-      console.log("Affichage de l'arbre avec l'id : " + this.state.arbre.id + " ("+this.state.arbre.nom+")")
+      console.log("Affichage de l'arbre avec l'id : " + this.state.arbre.id)
       return(
         <ScrollView style={{marginLeft: 5, marginRight: 5}}>
           <View style={{flex:1, flexDirection: 'row', alignItems: 'center', marginBottom: 10}}>
@@ -77,7 +77,7 @@ class ArbreItem extends React.Component {
 
   render() {
     return (
-      <View style={styles.main_container}>
+      <View style={styles.container}>
         {this._displayLoading()}
         {this._displayArbre()}
       </View>
@@ -91,14 +91,19 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   loading_container: {
-    flex: 1,
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0,
     alignItems: 'center',
     justifyContent: 'center'
   },
   title_text: {
     fontSize: 30,
     fontWeight: 'bold',
-    marginLeft: 20
+    marginLeft: 20,
+    width: '86%'
   },
   goBack_image: {
     width: 32,
