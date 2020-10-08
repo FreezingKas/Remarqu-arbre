@@ -69,8 +69,8 @@ class Accueil extends React.Component {
 
         <MyMap></MyMap>
 
-        <TouchableOpacity onPress={() => this._toggleMenu()}>
-          <Image style={{backgroundColor: '#FFF', margin:7, height: 48, width: 48, borderRadius: 24}} source={require('../Ressources/Images/burger.png')}/>
+        <TouchableOpacity onPress={() => this._toggleMenu()} style={styles.button}>
+          <Image style={styles.imageButton} source={require('../Ressources/Images/burger.png')}/>
         </TouchableOpacity>
 
         <View style={this.state.menu}>
@@ -150,6 +150,39 @@ class Accueil extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  button: {
+    top: 0,
+    left: 0,
+    marginTop: 15,
+    marginLeft: 15,
+
+    
+    padding: 5,
+
+    height:54,
+    width:54,
+
+    borderRadius:27,
+
+    backgroundColor:'#FFF',
+
+    justifyContent:'center',
+    alignItems:'center',
+
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 5,
+      height: 12,
+    },
+    shadowOpacity: 0.98,
+    shadowRadius: 18.00,
+
+    elevation: 38,
+  },
+  imageButton:{
+    width: 32,
+    height:32
+  },
   container: {
     flex: 1,
     backgroundColor: '#F5FCFF',
