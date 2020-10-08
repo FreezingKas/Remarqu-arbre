@@ -1,8 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View, SafeAreaView, Button, TextInput, Image, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, TextInput, Image, StatusBar } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {Modalize} from 'react-native-modalize';
-import { Title } from 'react-native-paper';
+import { Title, Button } from 'react-native-paper';
 import Modal from 'react-native-modal';
 
 import data from '../helpers/Arbre';
@@ -57,31 +57,40 @@ class Accueil extends React.Component {
           }
         />
 
-        <Modal isVisible={false} style={{backgroundColor: "white", borderRadius: 10}}>
+        <Modal isVisible={true} style={{backgroundColor: "white", borderRadius: 10}}>
           <View style={{flex: 1, justifyContent:'center', alignItems:'center'}}>
             <View style={styles.container1}>
               <Title style={styles.titleText}>Bienvenue dans ScanArbre</Title>
               <FormInput
                 labelName='Email'
                 autoCapitalize='none'
+                
+                theme={{ colors: { primary: 'green',underlineColor:'green',}}}
+                underlineColor={('green')}
               />
               <FormInput
                 labelName='Mot de passe'
                 secureTextEntry={true}
+                theme={{ colors: { primary: 'green',underlineColor:'green',}}}
+                underlineColor={('green')}
               />
               <FormButton
                 title='Connexion'
                 modeValue='contained'
                 labelStyle={styles.loginButtonLabel}
                 onPress={() => console.log("Connexion")}
+                color={'green'}
               />
               <FormButton
-                title='Nouveau membre ? Inscris-toi'
+                title='Nouveau ici ?'
                 modeValue='text'
                 uppercase={false}
                 labelStyle={styles.navButtonText}
                 onPress={() => console.log("Inscription")}
+                color={'green'}
+
               />
+              <Button icon="arrow-down-thick" color={'green'} size={32} onPress={()=>console.log('c rien c la rue')} style={{height:32, width: 32}}/>
             </View>
           </View>
         </Modal>
