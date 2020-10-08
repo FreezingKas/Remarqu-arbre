@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, SafeAreaView, TextInput, Image, StatusBar, Dimensions } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {Modalize} from 'react-native-modalize';
-import { Title, Button } from 'react-native-paper';
+import { Title, IconButton } from 'react-native-paper';
 import Modal from 'react-native-modal';
 
 import data from '../helpers/Arbre';
@@ -140,7 +140,7 @@ class Accueil extends React.Component {
                 color={'green'}
 
               />
-              <Button icon="arrow-down-thick" color={'green'} size={32} onPress={()=> this.toggleModal()} style={{height:32, width: 32}}/>
+              <IconButton icon="arrow-down-thick" color={'green'} size={32} onPress={()=> this.toggleModal()}/>
             </View>
           </View>
         </Modal>
@@ -229,7 +229,8 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: 24,
-    marginBottom: 10
+    marginBottom: 10,
+    marginTop: 15
   },
   loginButtonLabel: {
     fontSize: 22
