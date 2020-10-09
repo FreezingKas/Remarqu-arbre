@@ -14,6 +14,6 @@ expo start
 - [x] Créer un historique dans une BottomSheet
 - [ ] Implémenter le Scan NFC
 - [ ] Implémenter l'authentification via firebase
-- [ ] Implémenter la bases de données des utilisateurs et des <Marker/> rn-maps via firebase
+- [ ] Implémenter la base de données des utilisateurs et des <Marker/> rn-maps via firebase
 
 
