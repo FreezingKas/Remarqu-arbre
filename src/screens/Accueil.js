@@ -144,7 +144,11 @@ class Accueil extends React.Component {
                 color={'green'}
 
               />
+<<<<<<< Updated upstream
               <IconButton icon="arrow-down-thick" color={'green'} size={30} onPress={()=> this.toggleModal()}/>
+=======
+              <Button icon="arrow-down-bold" color={'green'} size={32} onPress={()=>console.log('c rien c la rue')} style={{height:32, width: 32}}/>
+>>>>>>> Stashed changes
             </View>
           </View>
         </Modal>
