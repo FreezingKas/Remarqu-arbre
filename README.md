@@ -18,7 +18,7 @@ expo start
 - [ ] Implémenter le Scan NFC
 - [ ] Implémenter l'authentification via firebase
 - [ ] Implémenter la base de données des utilisateurs et des <Marker/> rn-maps via firebase afin d'avoir un historique dynamique en fonction de l'utlisateurs
-- [ ] Créer le screen administrateur permettant de gérer les infos deds puces déjà posés
+- [ ] Créer le screen administrateur permettant de gérer les infos des puces déjà posés
 
 
 ### Versions
