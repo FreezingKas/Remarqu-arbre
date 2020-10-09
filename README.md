@@ -23,10 +23,10 @@ expo start
 
 ### Versions
 
-Expo SDK : 38.0.8
-expo-cli : 3.26.0
-react-native : 0.62.2
-react-native-modalize : 2.0.6
-react-navigation : 4.4.0
-react-native-maps : 0.27.1
-react-native-modal : 11.5.6
+- Expo SDK : 38.0.8
+- expo-cli : 3.26.0
+- react-native : 0.62.2
+- react-native-modalize : 2.0.6
+- react-navigation : 4.4.0
+- react-native-maps : 0.27.1
+- react-native-modal : 11.5.6
