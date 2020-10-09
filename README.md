@@ -1,4 +1,4 @@
-### ArbreScanner
+# ArbreScanner
 
 How to test the project with expo :
 
@@ -8,7 +8,7 @@ npm install
 expo start
 ```
 
-# Tasks
+### Tasks
 
 - [x] Implémenter la map de Google
 - [x] Créer un historique dans une BottomSheet
