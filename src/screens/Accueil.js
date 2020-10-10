@@ -6,6 +6,7 @@ import { Title, IconButton, Menu, Divider, Provider } from 'react-native-paper';
 import Modal from 'react-native-modal';
 
 import data from '../helpers/Arbre';
+import {getArbreFromDataWithSearchedText} from '../helpers/Arbre';
 
 
 import MyMap from '../Components/MyMap';
@@ -21,8 +22,10 @@ class Accueil extends React.Component {
   constructor(props) {
     super(props)
     modalizeRef = React.createRef()
+    this.searchedText = ""
 
     this.state = {
+      data: data,
       isModalVisible : false,
       isMenuVisible: false,
     }
@@ -42,14 +45,29 @@ class Accueil extends React.Component {
 
   closeMenu = () => this.setState({isMenuVisible: false});
 
+  _searchTextInputChanged(text) {
+    this.searchedText = text
+  }
+
+  _loadSearchArbre() {
+    if (this.searchedText.length > 0) {
+      this.setState({
+        data: getArbreFromDataWithSearchedText(this.searchedText)
+      })
+    }
+    else {
+      this.setState({
+        data: data
+      })
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <StatusBar hidden={true} />
 
         <MyMap></MyMap>
-
-        
 
         <Provider>
           <View
@@ -69,7 +87,7 @@ class Accueil extends React.Component {
                             source={require('../Ressources/Images/scan-helper.png')}
                             style={{ width:20, height:20}}
                           />
-                        )} 
+                        )}
                         onPress={() => {this.props.navigation.navigate("Scan")}} title="Scan" />
               <Menu.Item icon={() => (
                           <Image
@@ -93,7 +111,7 @@ class Accueil extends React.Component {
           ref={modalizeRef}
           flatListProps={{
             style: styles.flatlist,
-            data: data,
+            data: this.state.data,
             keyExtractor: (item) => item.id.toString(),
             renderItem: ({item}) => (
               <ListItem
@@ -106,7 +124,11 @@ class Accueil extends React.Component {
           HeaderComponent={
             <View>
               <Text style={styles.historique}>Historique</Text>
-              <TextInput style={styles.search} placeholder='Cherchez un arbre !'/>
+              <TextInput
+                style={styles.search}
+                placeholder='Cherchez un arbre !'
+                onChangeText={(text) => this._searchTextInputChanged(text)}
+                onSubmitEditing={() => this._loadSearchArbre()}/>
             </View>
           }
         />
@@ -144,11 +166,7 @@ class Accueil extends React.Component {
                 color={'green'}
 
               />
-<<<<<<< Updated upstream
               <IconButton icon="arrow-down-thick" color={'green'} size={30} onPress={()=> this.toggleModal()}/>
-=======
-              <Button icon="arrow-down-bold" color={'green'} size={32} onPress={()=>console.log('c rien c la rue')} style={{height:32, width: 32}}/>
->>>>>>> Stashed changes
             </View>
           </View>
         </Modal>
@@ -165,7 +183,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     marginBottom: 15,
 
-    
+
     padding: 5,
 
     height:54,

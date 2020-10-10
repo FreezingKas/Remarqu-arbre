@@ -71,6 +71,17 @@ export default data = [
       date:"10/04/2018",
       id: 5},
 ]
+export function getArbreFromDataWithSearchedText(text) {
+  var arbreSearch = []
+  for (var i=0; data[i]; i++) {
+    var arbre = data[i]
+    if(arbre.nom.includes(text) || arbre.ville.includes(text)) {
+      arbreSearch.push(arbre)
+    }
+  }
+  return arbreSearch
+}
+
 
 export function getArbreDetailFromData(id) {
   return data[id]
