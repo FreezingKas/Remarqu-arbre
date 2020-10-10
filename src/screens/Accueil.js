@@ -47,6 +47,7 @@ class Accueil extends React.Component {
 
   _searchTextInputChanged(text) {
     this.searchedText = text
+    this._loadSearchArbre(text)
   }
 
   _loadSearchArbre() {
