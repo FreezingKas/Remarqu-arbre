@@ -2,7 +2,6 @@ import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import Accueil from '../Screens/Accueil';
 import ArbreItem from '../Screens/ArbreItem';
-import Historique from '../Screens/Historique';
 import Scan from '../Screens/Scan';
 
 
@@ -15,12 +14,6 @@ const SearchStackNavigator = createStackNavigator({
   },
   ArbreItem: {
     screen: ArbreItem,
-    navigationOptions: {
-      headerShown: false
-    }
-  },
-  Historique: {
-    screen: Historique,
     navigationOptions: {
       headerShown: false
     }
