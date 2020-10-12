@@ -3,6 +3,7 @@ import {createStackNavigator} from 'react-navigation-stack';
 import Accueil from '../Screens/Accueil';
 import ArbreItem from '../Screens/ArbreItem';
 import Scan from '../Screens/Scan';
+import MoreInfo from '../Screens/MoreInfo'
 
 
 const SearchStackNavigator = createStackNavigator({
@@ -20,6 +21,12 @@ const SearchStackNavigator = createStackNavigator({
   },
   Scan: {
     screen: Scan,
+    navigationOptions: {
+      headerShown: false
+    }
+  },
+  MoreInfo: {
+    screen: MoreInfo,
     navigationOptions: {
       headerShown: false
     }

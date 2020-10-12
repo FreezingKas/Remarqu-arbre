@@ -96,6 +96,12 @@ class Accueil extends React.Component {
                             style={{ width:20, height:20}}
                           />
                         )} onPress={() => {this.onOpen()}} title="Historique" />
+              <Menu.Item icon={() => (
+                          <Image
+                            source={require('../Ressources/Images/history.png')}
+                            style={{ width:20, height:20}}
+                          />
+                        )} onPress={() => this.props.navigation.navigate("MoreInfo")} title="Plus d'informations" />
               <Divider />
               <Menu.Item icon={() => (
                           <Image
