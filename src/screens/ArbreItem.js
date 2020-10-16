@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, View, Linking, TouchableOpacity, Image, Dimensions, ScrollView, ActivityIndicator } from 'react-native';
 import {getArbreDetailFromData} from '../helpers/Arbre'
 
+const width = Dimensions.get('window').width
+
 class ArbreItem extends React.Component {
 
   constructor(props) {
@@ -13,25 +15,19 @@ class ArbreItem extends React.Component {
     }
   }
 
-  _updateNavigationParams() {
-    this.props.navigation.setParams({
-      arbre: this.state.arbre
-    })
-  }
-
   componentDidMount() {
     this.setState({ isLoading: true })
     this.setState({
       arbre: getArbreDetailFromData(this.props.navigation.state.params.id),
       isLoading: false
-    }, () => { this._updateNavigationParams() })
+    })
   }
 
   _displayLoading() {
     if (this.state.isLoading) {
       return (
-        <View style={styles.loading_container}>
-          <ActivityIndicator size='large' />
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size='large'/>
         </View>
       )
     }
@@ -39,39 +35,38 @@ class ArbreItem extends React.Component {
 
   _displayArbre() {
     if(this.state.arbre != undefined) {
-      console.log("Affichage de l'arbre avec l'id : " + this.state.arbre.id)
       return(
-        <ScrollView style={{marginLeft: 5, marginRight: 5}}>
-          <View style={{flex:1, flexDirection: 'row', alignItems: 'center', marginBottom: 10}}>
+        <ScrollView style={styles.containerScrollView}>
+          <View style={styles.headerView}>
             <TouchableOpacity onPress = {() => this.props.navigation.navigate("Accueil")} style={styles.button}>
               <Image
                 source = {require('../Ressources/Images/goBack.png')}
-                style = {styles.goBack_image}
+                style = {styles.goBackImage}
               />
             </TouchableOpacity>
-            <Text style={styles.title_text}>{this.state.arbre.nom} de {this.state.arbre.ville}</Text>
+            <Text style={styles.titleText}>{this.state.arbre.nom} de {this.state.arbre.ville}</Text>
           </View>
-          <View style={{alignItems: 'center'}}>
-            <View style={{elevation: 24, width: Dimensions.get('window').width/1.5,height: Dimensions.get('window').width/1.5,borderRadius: Dimensions.get('window').width/2 }}>
+          <View style={styles.imageViewContainer}>
+            <View style={styles.imageView}>
             <Image
               source= {require('../Ressources/Images/arbre.jpg')}
-              style={styles.arbre_image}
+              style={styles.arbreImage}
             />
             </View>
           </View>
-          <Text style={styles.section_text}>INFORMATIONS</Text>
-          <Text style={styles.default_text}>Lieu : {this.state.arbre.ville}</Text>
-          <Text style={styles.default_text}>Essence : {this.state.arbre.essence}</Text>
-          <Text style={styles.default_text}>Taille : {this.state.arbre.taille}</Text>
-          <Text style={styles.default_text}>Âge : {this.state.arbre.age} ans</Text>
-          <Text style={styles.section_text}>HISTOIRE</Text>
-          <Text style={styles.default_text}>{this.state.arbre.histoire}</Text>
-          <Text style={styles.section_text}>LIEN EXTERNE</Text>
+          <Text style={styles.sectionText}>INFORMATIONS</Text>
+          <Text style={styles.defaultText}>Lieu : {this.state.arbre.ville}</Text>
+          <Text style={styles.defaultText}>Essence : {this.state.arbre.essence}</Text>
+          <Text style={styles.defaultText}>Taille : {this.state.arbre.taille}</Text>
+          <Text style={styles.defaultText}>Âge : {this.state.arbre.age} ans</Text>
+          <Text style={styles.sectionText}>HISTOIRE</Text>
+          <Text style={styles.defaultText}>{this.state.arbre.histoire}</Text>
+          <Text style={styles.sectionText}>LIEN EXTERNE</Text>
           <TouchableOpacity onPress={() => Linking.openURL(this.state.arbre.site)}>
-            <Text style={styles.lien_text}>Site externe</Text>
+            <Text style={styles.lienText}>Site externe</Text>
           </TouchableOpacity>
-          <Text style={styles.section_text}>VIDÉO</Text>
-          <Text style={styles.default_text}>{this.state.arbre.video}</Text>
+          <Text style={styles.sectionText}>VIDÉO</Text>
+          <Text style={styles.defaultText}>{this.state.arbre.video}</Text>
         </ScrollView>
       )
     }
@@ -88,6 +83,33 @@ class ArbreItem extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+  containerScrollView: {
+    marginHorizontal: 5
+  },
+  headerView: {
+    flex:1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10
+  },
+  loadingContainer: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  titleText: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    marginLeft: 15,
+    width: '86%'
+  },
   button: {
     top: 0,
     left: 0,
@@ -95,7 +117,6 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     marginBottom: 15,
 
-    
     padding: 5,
 
     height:54,
@@ -118,38 +139,36 @@ const styles = StyleSheet.create({
 
     elevation: 38,
   },
-  container: {
-    flex: 1,
-    
-  },
-  loading_container: {
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    right: 0,
-    left: 0,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  title_text: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    marginLeft: 15,
-    width: '86%'
-  },
-  goBack_image: {
+  goBackImage: {
     width: 32,
     height: 32
   },
-  arbre_image: {
-    width: Dimensions.get('window').width/1.5,
-    height: Dimensions.get('window').width/1.5,
-    borderRadius: Dimensions.get('window').width/2,
+  imageViewContainer: {
+    alignItems: 'center'
+  },
+  imageView: {
+    width: width/1.5,
+    height: width/1.5,
+    borderRadius: width/2,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 5,
+      height: 12,
+    },
+    shadowOpacity: 0.98,
+    shadowRadius: 18.00,
+
+    elevation: 38,
+  },
+  arbreImage: {
+    width: width/1.5,
+    height: width/1.5,
+    borderRadius: width/2,
     borderColor: '#000',
     borderWidth: 3,
-    marginBottom: 15,
+    marginBottom: 15
   },
-  section_text: {
+  sectionText: {
     fontSize: 22,
     fontWeight: 'bold',
     color: '#000',
@@ -157,12 +176,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginTop: 10
   },
-  default_text: {
+  defaultText: {
     fontSize: 16,
     color: '#444',
     textAlign: 'justify'
   },
-  lien_text: {
+  lienText: {
     fontSize: 16,
     color: '#606AA5',
     textDecorationLine: 'underline'

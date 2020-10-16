@@ -47,10 +47,7 @@ class Accueil extends React.Component {
 
   _searchTextInputChanged(text) {
     this.searchedText = text
-    this._loadSearchArbre(text)
-  }
 
-  _loadSearchArbre() {
     if (this.searchedText.length > 0) {
       this.setState({
         data: getArbreFromDataWithSearchedText(this.searchedText)
@@ -98,7 +95,7 @@ class Accueil extends React.Component {
                         )} onPress={() => {this.onOpen()}} title="Historique" />
               <Menu.Item icon={() => (
                           <Image
-                            source={require('../Ressources/Images/history.png')}
+                            source={require('../Ressources/Images/moreInfo.png')}
                             style={{ width:20, height:20}}
                           />
                         )} onPress={() => this.props.navigation.navigate("MoreInfo")} title="Plus d'informations" />
@@ -133,9 +130,8 @@ class Accueil extends React.Component {
               <Text style={styles.historique}>Historique</Text>
               <TextInput
                 style={styles.search}
-                placeholder='Cherchez un arbre !'
-                onChangeText={(text) => this._searchTextInputChanged(text)}
-                onSubmitEditing={() => this._loadSearchArbre()}/>
+                placeholder='Recherchez un arbre'
+                onChangeText={(text) => this._searchTextInputChanged(text)}/>
             </View>
           }
         />

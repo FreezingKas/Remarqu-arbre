@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, Text, Image, TouchableOpacity, Dimensions } from 'react-native'
+import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
 
 class ListItem extends React.Component {
   constructor(props) {
@@ -8,26 +8,20 @@ class ListItem extends React.Component {
 
   render() {
     return (
-      <View style={styles.itemArbre}>
-        <TouchableOpacity style={{flexDirection: 'row'}} onPress={() => this.props.nav.navigate("ArbreItem", {id : this.props.item.id})}>
+      <View style={styles.containerView}>
+        <TouchableOpacity style={styles.arbreItemView} onPress={() => this.props.nav.navigate("ArbreItem", {id : this.props.item.id})}>
           <Image
             style={styles.image}
             source={this.props.item.photo}
           />
-          <View style={styles.textArbreItem}>
-            <Text style={styles.nomArbreItem}>{this.props.item.nom} - {this.props.item.ville}</Text>
+          <View style={styles.arbreItemText}>
+            <Text style={styles.nomArbreItemText}>{this.props.item.nom} - {this.props.item.ville}</Text>
             <Text>{this.props.item.date}</Text>
           </View>
         </TouchableOpacity>
-        <View style={{alignItems: 'center'}}>
+        <View style={styles.blackLineContainerView}>
           <View
-            style={{
-              backgroundColor: 'black',
-              width: 60,
-              height: 2,
-              marginTop: 5,
-              marginBottom: 5,
-            }}
+            style={styles.blackLineView}
           ></View>
         </View>
       </View>
@@ -36,6 +30,12 @@ class ListItem extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  containerView: {
+    marginVertical: 5
+  },
+  arbreItemView: {
+    flexDirection: 'row'
+  },
   image: {
     width: 64,
     height: 64,
@@ -43,21 +43,23 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'black'
   },
-  itemArbre: {
-    marginTop: 5,
-    marginBottom: 5,
-  },
-  flatlist: {
-    marginLeft: 10,
-    marginRight: 10
-  },
-  textArbreItem: {
+  arbreItemText: {
     justifyContent: 'center',
     marginLeft: 5,
     width: '80%'
   },
-  nomArbreItem: {
+  nomArbreItemText: {
     fontSize: 20
+  },
+  blackLineContainerView: {
+    alignItems: 'center'
+  },
+  blackLineView: {
+    backgroundColor: 'black',
+    width: 60,
+    height: 2,
+    marginTop: 5,
+    marginBottom: 5,
   }
 })
 
