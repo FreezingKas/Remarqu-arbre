@@ -8,15 +8,11 @@ import {Provider} from 'react-native-paper'
 import data from '../helpers/Arbre';
 import { getArbreFromDataWithSearchedText } from '../helpers/Arbre';
 
-
 import MyMap from '../Components/MyMap';
 
 import ListItem from '../Components/ListItem';
 import MyModal from '../Components/MyModal'
 import MyMenu from '../Components/MyMenu';
-
-
-
 
 class Accueil extends React.Component {
 
