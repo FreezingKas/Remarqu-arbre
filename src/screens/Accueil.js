@@ -8,14 +8,10 @@ import Modal from 'react-native-modal';
 import data from '../helpers/Arbre';
 import {getArbreFromDataWithSearchedText} from '../helpers/Arbre';
 
-
 import MyMap from '../Components/MyMap';
 import FormInput from '../Components/FormInput';
 import FormButton from '../Components/FormButton';
 import ListItem from '../Components/ListItem';
-
-
-
 
 class Accueil extends React.Component {
 
@@ -139,7 +135,7 @@ class Accueil extends React.Component {
         <Modal isVisible={this.state.isModalVisible} useNativeDriver={true} style={{backgroundColor: "white", marginTop: '40%', borderRadius: 10, maxHeight: Dimensions.get('window').height/2}} onBackdropPress={() => this.toggleModal(false)}>
           <View style={{flex: 1, justifyContent:'center', alignItems:'center'}}>
             <View style={styles.container1}>
-              <Title style={styles.titleText}>Bienvenue !</Title>
+              <Title style={styles.titleText}>Bienvenue</Title>
               <FormInput
                 labelName='Email'
                 autoCapitalize='none'

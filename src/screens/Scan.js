@@ -3,85 +3,78 @@ import { StyleSheet, Text, View, Dimensions, Image } from 'react-native';
 
 import FormButton from '../Components/FormButton';
 
+const defaultView = {
+  uri: require('../Ressources/Images/readyScan.png'),
+  titleText: "Prêt à scanner",
+  DescriptionText: "Approchez votre téléphone de la puce sur l'arbre.",
+  tryButton: "SCANNER",
+  colorButton: 'green',
+
+  color: {
+    backgroundColor: 'white'
+  }
+};
+
+const errorView = {
+  uri: require('../Ressources/Images/errorScan.png'),
+  titleText: "Puce NFC introuvable !",
+  DescriptionText: "Réessayer d'approchez votre téléphone de la puce sur l'arbre.",
+  tryButton: "RÉESAYER",
+  colorButton: 'red',
+
+  color: {
+    backgroundColor: '#FFC2C2'
+  }
+};
+
 class Scan extends React.Component {
 
   constructor(props) {
     super(props)
 
     this.state = {
-      uri: require('../Ressources/Images/readyScan.png'),
-      titleText: "Prêt à scanner",
-      DescriptionText: "Approchez votre téléphone de la puce sur l'arbre.",
-      tryButton: "SCANNER",
-      errorScan: false,
-      colorButton: 'green',
-
-      color: {
-        backgroundColor: 'white'
-      }
+      view: defaultView
     }
   }
 
   _changeToViewScan() {
-    if(!this.state.errorScan) {
-      this.setState((state) => ({
-        uri: require('../Ressources/Images/errorScan.png'),
-        titleText: "Puce NFC introuvable !",
-        DescriptionText: "Réessayer d'approchez votre téléphone de la puce sur l'arbre.",
-        tryButton: "RÉESAYER",
-        errorScan: true,
-        colorButton: 'red',
-
-        color: {
-          backgroundColor: '#FFC2C2'
-        }
-      }));
+    if(this.state.view == defaultView) {
+      this.setState({view: errorView})
     }
     else {
-      this.setState((state) => ({
-        uri: require('../Ressources/Images/readyScan.png'),
-        titleText: "Prêt à scanner",
-        DescriptionText: "Approchez votre téléphone de la puce sur l'arbre.",
-        tryButton: "SCANNER",
-        errorScan: false,
-        colorButton: 'green',
-
-        color: {
-          backgroundColor: 'white'
-        }
-      }));
+      this.setState({view: defaultView})
     }
   }
 
   render() {
     return (
-      <View style={[styles.containerView, this.state.color]}>
+      <View style={[styles.containerView, this.state.view.color]}>
         <View style={styles.titleView}>
-          <Text style={styles.titleText}>{this.state.titleText}</Text>
+          <Text style={styles.titleText}>{this.state.view.titleText}</Text>
         </View>
         <View style={styles.imageView}>
           <Image
-            source={this.state.uri}
+            source={this.state.view.uri}
             style={styles.scanImage}
           />
         </View>
         <View style={styles.textView}>
-          <Text style={styles.DescriptionText}>{this.state.DescriptionText}</Text>
+          <Text style={styles.DescriptionText}>{this.state.view.DescriptionText}</Text>
         </View>
         <View style={styles.buttonView}>
           <FormButton
-            title={this.state.tryButton}
+            title={this.state.view.tryButton}
             modeValue='contained'
             labelStyle={styles.loginButtonLabel}
             onPress={() => this._changeToViewScan()}
-            color={this.state.colorButton}
+            color={this.state.view.colorButton}
           />
           <FormButton
             title='Annuler'
             modeValue='text'
             labelStyle={styles.loginButtonLabel}
             onPress={() => this.props.navigation.navigate("Accueil")}
-            color={this.state.colorButton}
+            color={this.state.view.colorButton}
           />
         </View>
       </View>
