@@ -1,18 +1,19 @@
 import React from 'react';
-import { StyleSheet, Text, View, SafeAreaView, TextInput, Image, StatusBar, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Image, StatusBar } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import {Modalize} from 'react-native-modalize';
-import { Title, IconButton, Menu, Divider, Provider } from 'react-native-paper';
-import Modal from 'react-native-modal';
+import { Modalize } from 'react-native-modalize';
+import {Provider} from 'react-native-paper'
+
 
 import data from '../helpers/Arbre';
-import {getArbreFromDataWithSearchedText} from '../helpers/Arbre';
+import { getArbreFromDataWithSearchedText } from '../helpers/Arbre';
 
 
 import MyMap from '../Components/MyMap';
-import FormInput from '../Components/FormInput';
-import FormButton from '../Components/FormButton';
+
 import ListItem from '../Components/ListItem';
+import MyModal from '../Components/MyModal'
+import MyMenu from '../Components/MyMenu';
 
 
 
@@ -26,7 +27,7 @@ class Accueil extends React.Component {
 
     this.state = {
       data: data,
-      isModalVisible : false,
+      isModalVisible: false,
       isMenuVisible: false,
     }
   }
@@ -35,15 +36,20 @@ class Accueil extends React.Component {
     modalizeRef.current?.open();
   };
 
-  toggleModal = () =>{
+  toggleModal = () => {
     this.setState({
-    isModalVisible:!this.state.isModalVisible
+      isModalVisible: !this.state.isModalVisible
     })
   };
 
-  openMenu = () =>  this.setState({isMenuVisible: true});
+  toggleMenu = () => {
+    this.setState({
+      isMenuVisible: !this.state.isMenuVisible
+    })
+  };
+  openMenu = () => this.setState({ isMenuVisible: true });
 
-  closeMenu = () => this.setState({isMenuVisible: false});
+  closeMenu = () => this.setState({ isMenuVisible: false });
 
   _searchTextInputChanged(text) {
     this.searchedText = text
@@ -66,50 +72,16 @@ class Accueil extends React.Component {
         <StatusBar hidden={true} />
 
         <MyMap></MyMap>
-
         <Provider>
-          <View
-            style={{
-              flexDirection: 'row',
-            }}>
-            <Menu
-              visible={this.state.isMenuVisible}
-              onDismiss={this.closeMenu}
-              anchor={<TouchableOpacity onPress={() => this.openMenu()} style={styles.button}>
-                        <Image style={styles.imageButton} source={require('../Ressources/Images/burger.png')}/>
-                      </TouchableOpacity>}
-              style={{marginTop: 35, marginLeft:5}}>
-
-              <Menu.Item icon={() => (
-                          <Image
-                            source={require('../Ressources/Images/scan-helper.png')}
-                            style={{ width:20, height:20}}
-                          />
-                        )}
-                        onPress={() => {this.props.navigation.navigate("Scan")}} title="Scan" />
-              <Menu.Item icon={() => (
-                          <Image
-                            source={require('../Ressources/Images/history.png')}
-                            style={{ width:20, height:20}}
-                          />
-                        )} onPress={() => {this.onOpen()}} title="Historique" />
-              <Menu.Item icon={() => (
-                          <Image
-                            source={require('../Ressources/Images/moreInfo.png')}
-                            style={{ width:20, height:20}}
-                          />
-                        )} onPress={() => this.props.navigation.navigate("MoreInfo")} title="Plus d'informations" />
-              <Divider />
-              <Menu.Item icon={() => (
-                          <Image
-                            source={require('../Ressources/Images/login.png')}
-                            style={{ width:20, height:20}}
-                          />
-                        )}
-                         onPress={() => {this.toggleModal()}} title="Connexion" />
-            </Menu>
-          </View>
+          <MyMenu state={this.state.isMenuVisible} 
+                  funcToggleMenuOpen={this.openMenu} 
+                  funcToggleMenuClose={this.closeMenu} 
+                  funcToggleModal={this.toggleModal}
+                  nav={this.props.navigation}
+                  funcOpenModalize={this.onOpen}
+                  />
         </Provider>
+        
 
         <Modalize
           ref={modalizeRef}
@@ -117,7 +89,7 @@ class Accueil extends React.Component {
             style: styles.flatlist,
             data: this.state.data,
             keyExtractor: (item) => item.id.toString(),
-            renderItem: ({item}) => (
+            renderItem: ({ item }) => (
               <ListItem
                 item={item}
                 nav={this.props.navigation}
@@ -131,48 +103,14 @@ class Accueil extends React.Component {
               <TextInput
                 style={styles.search}
                 placeholder='Recherchez un arbre'
-                onChangeText={(text) => this._searchTextInputChanged(text)}/>
+                onChangeText={(text) => this._searchTextInputChanged(text)} />
             </View>
           }
         />
 
-        <Modal isVisible={this.state.isModalVisible} useNativeDriver={true} style={{backgroundColor: "white", marginTop: '40%', borderRadius: 10, maxHeight: Dimensions.get('window').height/2}} onBackdropPress={() => this.toggleModal(false)}>
-          <View style={{flex: 1, justifyContent:'center', alignItems:'center'}}>
-            <View style={styles.container1}>
-              <Title style={styles.titleText}>Bienvenue !</Title>
-              <FormInput
-                labelName='Email'
-                autoCapitalize='none'
+        <MyModal state={this.state.isModalVisible} funcToggle={this.toggleModal}></MyModal>
 
-                theme={{ colors: { primary: 'green',underlineColor:'green',}}}
-                underlineColor={('green')}
-              />
-              <FormInput
-                labelName='Mot de passe'
-                secureTextEntry={true}
-                theme={{ colors: { primary: 'green',underlineColor:'green',}}}
-                underlineColor={('green')}
-              />
-              <FormButton
-                title='Connexion'
-                modeValue='contained'
-                labelStyle={styles.loginButtonLabel}
-                onPress={() => console.log("Connexion")}
-                color={'green'}
-              />
-              <FormButton
-                title='Nouveau ici ?'
-                modeValue='text'
-                uppercase={false}
-                labelStyle={styles.navButtonText}
-                onPress={() => console.log("Inscription")}
-                color={'green'}
-
-              />
-              <IconButton icon="arrow-down-thick" color={'green'} size={30} onPress={()=> this.toggleModal()}/>
-            </View>
-          </View>
-        </Modal>
+    
       </View>
     )
   }
@@ -189,15 +127,15 @@ const styles = StyleSheet.create({
 
     padding: 5,
 
-    height:54,
-    width:54,
+    height: 54,
+    width: 54,
 
-    borderRadius:27,
+    borderRadius: 27,
 
-    backgroundColor:'#FFF',
+    backgroundColor: '#FFF',
 
-    justifyContent:'center',
-    alignItems:'center',
+    justifyContent: 'center',
+    alignItems: 'center',
 
     shadowColor: "#000",
     shadowOffset: {
@@ -209,9 +147,9 @@ const styles = StyleSheet.create({
 
     elevation: 38,
   },
-  imageButton:{
+  imageButton: {
     width: 32,
-    height:32
+    height: 32
   },
   container: {
     flex: 1,
