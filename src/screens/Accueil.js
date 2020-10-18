@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TextInput, Image, StatusBar } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Modalize } from 'react-native-modalize';
-import {Provider} from 'react-native-paper'
+import { Provider } from 'react-native-paper'
 
 
 import data from '../helpers/Arbre';
@@ -67,17 +67,17 @@ class Accueil extends React.Component {
       <View style={styles.container}>
         <StatusBar hidden={true} />
 
-        <MyMap></MyMap>
+        <MyMap />
         <Provider>
-          <MyMenu state={this.state.isMenuVisible} 
-                  funcToggleMenuOpen={this.openMenu} 
-                  funcToggleMenuClose={this.closeMenu} 
-                  funcToggleModal={this.toggleModal}
-                  nav={this.props.navigation}
-                  funcOpenModalize={this.onOpen}
-                  />
+          <MyMenu state={this.state.isMenuVisible}
+            funcToggleMenuOpen={this.openMenu}
+            funcToggleMenuClose={this.closeMenu}
+            funcToggleModal={this.toggleModal}
+            nav={this.props.navigation}
+            funcOpenModalize={this.onOpen}
+          />
         </Provider>
-        
+
 
         <Modalize
           ref={modalizeRef}
@@ -106,7 +106,7 @@ class Accueil extends React.Component {
 
         <MyModal state={this.state.isModalVisible} funcToggle={this.toggleModal}></MyModal>
 
-    
+
       </View>
     )
   }
