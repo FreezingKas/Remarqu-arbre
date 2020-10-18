@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     marginLeft: 15,
-    width: '86%'
+    width: '81%'
   },
   button: {
     top: 0,
@@ -173,13 +173,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#000',
     textAlign: 'center',
-    marginBottom: 10,
-    marginTop: 10
+    marginVertical: 10
   },
   defaultText: {
     fontSize: 16,
     color: '#444',
-    textAlign: 'justify'
+    textAlign: 'justify',
+    width: '98%'
   },
   lienText: {
     fontSize: 16,

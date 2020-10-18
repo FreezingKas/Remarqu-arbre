@@ -13,9 +13,9 @@ export default class MyMap extends React.Component {
     render() {
         return (
             <View>
-                <Modal isVisible={this.props.state} useNativeDriver={true} style={{ backgroundColor: "white", marginTop: '40%', borderRadius: 10, maxHeight: Dimensions.get('window').height / 2 }} onBackdropPress={() => this.toggleModal(false)}>
-                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                        <View style={styles.container1}>
+                <Modal isVisible={this.props.state} useNativeDriver={true} style={styles.modalContainerView} onBackdropPress={() => this.toggleModal(false)}>
+                    <View style={styles.containerView}>
+                        <View style={styles.containerView1}>
                             <Title style={styles.titleText}>Bienvenue !</Title>
                             <FormInput
                                 labelName='Email'
@@ -44,7 +44,6 @@ export default class MyMap extends React.Component {
                                 labelStyle={styles.navButtonText}
                                 onPress={() => console.log("Inscription")}
                                 color={'green'}
-
                             />
                             <IconButton icon="arrow-down-thick" color={'green'} size={30} onPress={this.props.funcToggle} />
                         </View>
@@ -56,11 +55,21 @@ export default class MyMap extends React.Component {
 
 }
 const styles = StyleSheet.create({
-    container1: {
-        backgroundColor: 'white',
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+  modalContainerView: {
+    backgroundColor: "white",
+    marginTop: '40%',
+    borderRadius: 10,
+    maxHeight: Dimensions.get('window').height / 2
+  },
+  containerView: { flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  containerView1: {
+      backgroundColor: 'white',
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center'
     },
     titleText: {
         fontSize: 24,

@@ -4,7 +4,6 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Modalize } from 'react-native-modalize';
 import { Provider } from 'react-native-paper'
 
-
 import data from '../helpers/Arbre';
 import { getArbreFromDataWithSearchedText } from '../helpers/Arbre';
 
@@ -43,9 +42,6 @@ class Accueil extends React.Component {
       isMenuVisible: !this.state.isMenuVisible
     })
   };
-  openMenu = () => this.setState({ isMenuVisible: true });
-
-  closeMenu = () => this.setState({ isMenuVisible: false });
 
   _searchTextInputChanged(text) {
     this.searchedText = text
@@ -70,14 +66,12 @@ class Accueil extends React.Component {
         <MyMap />
         <Provider>
           <MyMenu state={this.state.isMenuVisible}
-            funcToggleMenuOpen={this.openMenu}
-            funcToggleMenuClose={this.closeMenu}
-            funcToggleModal={this.toggleModal}
-            nav={this.props.navigation}
-            funcOpenModalize={this.onOpen}
-          />
+                  nav={this.props.navigation}
+                  funcToggleMenu={this.toggleMenu}
+                  funcToggleModal={this.toggleModal}
+                  funcOpenModalize={this.onOpen}
+                  />
         </Provider>
-
 
         <Modalize
           ref={modalizeRef}
@@ -117,9 +111,7 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     marginTop: 15,
-    marginLeft: 15,
-    marginBottom: 15,
-
+    marginHorizontal: 15,
 
     padding: 5,
 
@@ -171,12 +163,10 @@ const styles = StyleSheet.create({
     borderRadius: 32
   },
   itemArbre: {
-    marginTop: 5,
-    marginBottom: 5,
+    marginVertical: 5
   },
   flatlist: {
-    marginLeft: 10,
-    marginRight: 10
+    marginHorizontal: 10
   },
   textArbreItem: {
     justifyContent: 'center',
