@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, Image, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, TextInput, StatusBar } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Modalize } from 'react-native-modalize';
 import { Provider } from 'react-native-paper'
@@ -66,11 +66,11 @@ class Accueil extends React.Component {
         <MyMap />
         <Provider>
           <MyMenu state={this.state.isMenuVisible}
-                  nav={this.props.navigation}
-                  funcToggleMenu={this.toggleMenu}
-                  funcToggleModal={this.toggleModal}
-                  funcOpenModalize={this.onOpen}
-                  />
+            nav={this.props.navigation}
+            funcToggleMenu={this.toggleMenu}
+            funcToggleModal={this.toggleModal}
+            funcOpenModalize={this.onOpen}
+          />
         </Provider>
 
         <Modalize
@@ -107,38 +107,6 @@ class Accueil extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  button: {
-    top: 0,
-    left: 0,
-    marginTop: 15,
-    marginHorizontal: 15,
-
-    padding: 5,
-
-    height: 54,
-    width: 54,
-
-    borderRadius: 27,
-
-    backgroundColor: '#FFF',
-
-    justifyContent: 'center',
-    alignItems: 'center',
-
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 5,
-      height: 12,
-    },
-    shadowOpacity: 0.98,
-    shadowRadius: 18.00,
-
-    elevation: 38,
-  },
-  imageButton: {
-    width: 32,
-    height: 32
-  },
   container: {
     flex: 1,
     backgroundColor: '#F5FCFF',
@@ -157,41 +125,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 20
   },
-  image: {
-    width: 64,
-    height: 64,
-    borderRadius: 32
-  },
-  itemArbre: {
-    marginVertical: 5
-  },
   flatlist: {
     marginHorizontal: 10
   },
-  textArbreItem: {
-    justifyContent: 'center',
-    marginLeft: 5
-  },
-  nomArbreItem: {
-    fontSize: 20
-  },
-  container1: {
-    backgroundColor: 'white',
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  titleText: {
-    fontSize: 24,
-    marginBottom: 10,
-    marginTop: 15
-  },
-  loginButtonLabel: {
-    fontSize: 22
-  },
-  navButtonText: {
-    fontSize: 16
-  }
 })
 
 export default Accueil
