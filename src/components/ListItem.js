@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   },
   arbreItemText: {
     justifyContent: 'center',
-    marginLeft: 5,
+    marginHorizontal: 5,
     width: '80%'
   },
   nomArbreItemText: {
