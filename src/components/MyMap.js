@@ -4,6 +4,10 @@ import { StyleSheet, Text, View, Image } from 'react-native';
 import MapView, {Marker, Callout} from 'react-native-maps';
 import mapStyle from '../helpers/styleMap';
 
+
+/**/ 
+
+
 export default class MyMap extends React.Component {
     constructor(props) {
         super(props)
@@ -23,7 +27,6 @@ export default class MyMap extends React.Component {
                         longitudeDelta: 0.0421,
                     }}
                     customMapStyle={mapStyle}>
-
                         <Marker key={0}
                                 coordinate={{
                                     latitude: 49.128333,
