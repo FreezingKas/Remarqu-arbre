@@ -19,45 +19,79 @@ export default class MyMap extends React.Component {
             pass: "",
             email: "",
         }
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user != null) {
+                console.log("co");
+            } else {
+                console.log("pas co")
+            }
+        
+            // Do other things
+        });
     }
 
     __doSignUp = () => {
-        
-      
         this.__doCreateUser(this.state.email, this.state.pass)
-      }
-      
+    }
+
     __doCreateUser = async (email, password) => {
         try {
-          let response = await firebase.auth().createUserWithEmailAndPassword(email, password)
-          if (response) {
-            console.log( "🍎", response)
-          }
+            let response = await firebase.auth().createUserWithEmailAndPassword(email, password)
+            if (response) {
+                console.log(response)
+            }
         } catch (e) {
-          console.error(e.message)
+            console.error(e.message)
         }
-      }
+    }
 
-    
+    __doSignIn = () => {
+        this.__doSignUser(this.state.email, this.state.pass)
+    }
+
+    __doSignUser = async (email, password) => {
+        try {
+            let response = await firebase.auth().signInWithEmailAndPassword(email, password)
+            if (response) {
+                console.log(response)
+            }
+        } catch(e) {
+            console.error(e.message)
+        }
+    }
+
+    __doSignOut = () => {
+        this.__doSignOutUser()
+    }
+
+    __doSignOutUser = async () => {
+        try {
+            let response = await firebase.auth().signOut()
+        } catch (e) {
+            console.erreor(e.message)
+        }
+    }
+
+
 
     render() {
         return (
             <View>
-                <Modal isVisible={this.props.state} useNativeDriver={true} style={styles.modalContainerView} onBackdropPress={() => this.toggleModal(false)}>
+                <Modal isVisible={this.props.state} useNativeDriver={true} style={styles.modalContainerView} onBackdropPress={this.props.funcToggle}>
                     <View style={styles.containerView}>
                         <View style={styles.containerView1}>
                             <Title style={styles.titleText}>Bienvenue !</Title>
                             <FormInput
                                 labelName='Email'
                                 autoCapitalize='none'
-                                onChangeText={(text) => this.setState({email:text})}
+                                onChangeText={(text) => this.setState({ email: text })}
                                 theme={{ colors: { primary: 'green', underlineColor: 'green', } }}
                                 underlineColor={('green')}
                             />
                             <FormInput
                                 labelName='Mot de passe'
                                 secureTextEntry={true}
-                                onChangeText={(text) => this.setState({pass:text})}
+                                onChangeText={(text) => this.setState({ pass: text })}
                                 theme={{ colors: { primary: 'green', underlineColor: 'green', } }}
                                 underlineColor={('green')}
                             />
@@ -65,7 +99,7 @@ export default class MyMap extends React.Component {
                                 title='Connexion'
                                 modeValue='contained'
                                 labelStyle={styles.loginButtonLabel}
-                                onPress={() => this.__doSignUp()}
+                                onPress={() => this.__doSignIn()}
                                 color={'green'}
                             />
                             <FormButton
@@ -73,7 +107,24 @@ export default class MyMap extends React.Component {
                                 modeValue='text'
                                 uppercase={false}
                                 labelStyle={styles.navButtonText}
-                                onPress={() => console.log("Inscription")}
+                                onPress={() => this.__doSignUp}
+                                color={'green'}
+                            />
+                            <FormButton
+                                title='Déconnexion Test'
+                                modeValue='text'
+                                uppercase={false}
+                                labelStyle={styles.navButtonText}
+                                onPress={() => this.__doSignOut()}
+                                color={'green'}
+                            />
+
+                            <FormButton
+                                title='User console'
+                                modeValue='text'
+                                uppercase={false}
+                                labelStyle={styles.navButtonText}
+                                onPress={() => console.log(firebase.auth().currentUser)}
                                 color={'green'}
                             />
                             <IconButton icon="arrow-down-thick" color={'green'} size={30} onPress={this.props.funcToggle} />
@@ -86,21 +137,22 @@ export default class MyMap extends React.Component {
 
 }
 const styles = StyleSheet.create({
-  modalContainerView: {
-    backgroundColor: "white",
-    marginTop: '40%',
-    borderRadius: 10,
-    maxHeight: Dimensions.get('window').height / 2
-  },
-  containerView: { flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  containerView1: {
-      backgroundColor: 'white',
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center'
+    modalContainerView: {
+        backgroundColor: "white",
+        marginTop: '40%',
+        borderRadius: 10,
+        maxHeight: Dimensions.get('window').height / 2 + 100
+    },
+    containerView: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    containerView1: {
+        backgroundColor: 'white',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     titleText: {
         fontSize: 24,
