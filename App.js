@@ -8,8 +8,8 @@ export default class App extends React.Component {
 
   constructor(props) {
     super(props)
-    firebase.initializeApp(firebaseConfig)
-    console.log(firebase.SDK_VERSION)
+    
+    
   }
 
   render() {

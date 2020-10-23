@@ -1,14 +1,44 @@
 import React from 'react';
-import { StyleSheet, View, Dimensions } from 'react-native';
+import { StyleSheet, View, Dimensions, setError, setValid, __isValidEmail } from 'react-native';
 import Modal from 'react-native-modal';
 import { Title, IconButton, Menu, Divider, Provider } from 'react-native-paper';
 import FormInput from '../Components/FormInput';
 import FormButton from '../Components/FormButton';
 
+import * as firebase from 'firebase';
+import firebaseConfig from '../helpers/firebase'
+
+firebase.initializeApp(firebaseConfig)
+
+
+
 export default class MyMap extends React.Component {
     constructor(props) {
         super(props)
+        state = {
+            pass: "",
+            email: "",
+        }
     }
+
+    __doSignUp = () => {
+        
+      
+        this.__doCreateUser(this.state.email, this.state.pass)
+      }
+      
+    __doCreateUser = async (email, password) => {
+        try {
+          let response = await firebase.auth().createUserWithEmailAndPassword(email, password)
+          if (response) {
+            console.log( "🍎", response)
+          }
+        } catch (e) {
+          console.error(e.message)
+        }
+      }
+
+    
 
     render() {
         return (
@@ -20,13 +50,14 @@ export default class MyMap extends React.Component {
                             <FormInput
                                 labelName='Email'
                                 autoCapitalize='none'
-
+                                onChangeText={(text) => this.setState({email:text})}
                                 theme={{ colors: { primary: 'green', underlineColor: 'green', } }}
                                 underlineColor={('green')}
                             />
                             <FormInput
                                 labelName='Mot de passe'
                                 secureTextEntry={true}
+                                onChangeText={(text) => this.setState({pass:text})}
                                 theme={{ colors: { primary: 'green', underlineColor: 'green', } }}
                                 underlineColor={('green')}
                             />
@@ -34,7 +65,7 @@ export default class MyMap extends React.Component {
                                 title='Connexion'
                                 modeValue='contained'
                                 labelStyle={styles.loginButtonLabel}
-                                onPress={() => console.log("Connexion")}
+                                onPress={() => this.__doSignUp()}
                                 color={'green'}
                             />
                             <FormButton
