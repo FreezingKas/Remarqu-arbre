@@ -6,9 +6,8 @@ import FormInput from '../Components/FormInput';
 import FormButton from '../Components/FormButton';
 
 import * as firebase from 'firebase';
-import firebaseConfig from '../helpers/firebase'
 
-firebase.initializeApp(firebaseConfig)
+
 
 
 
@@ -21,15 +20,16 @@ export default class MyMap extends React.Component {
         }
         firebase.auth().onAuthStateChanged((user) => {
             if (user != null) {
-                console.log("co");
+                console.log("Utilisateur connecté");
             } else {
-                console.log("pas co")
+                console.log("Utilisateur déconnecté")
             }
-        
-            // Do other things
         });
     }
 
+    /*  Fonction d'envoi des données de création de compte 
+        🛑Faire appel à cette fonction et non à __doCreateUser🛑
+    */ 
     __doSignUp = () => {
         this.__doCreateUser(this.state.email, this.state.pass)
     }
@@ -45,6 +45,11 @@ export default class MyMap extends React.Component {
         }
     }
 
+
+    /*
+        Fonction d'envoi des données de connexion
+        🛑Faire appel à cette fonction et non à __doSignUser🛑
+    */ 
     __doSignIn = () => {
         this.__doSignUser(this.state.email, this.state.pass)
     }
@@ -60,6 +65,10 @@ export default class MyMap extends React.Component {
         }
     }
 
+    /*
+        Fonction de déconnexion
+        🛑Faire appel à cette fonction et non à __doSignOutUser🛑
+    */
     __doSignOut = () => {
         this.__doSignOutUser()
     }
@@ -139,9 +148,9 @@ export default class MyMap extends React.Component {
 const styles = StyleSheet.create({
     modalContainerView: {
         backgroundColor: "white",
-        marginTop: '40%',
+        marginTop: '36%',
         borderRadius: 10,
-        maxHeight: Dimensions.get('window').height / 2 + 100
+        maxHeight: Dimensions.get('window').height / 2 + 150
     },
     containerView: {
         flex: 1,

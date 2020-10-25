@@ -12,6 +12,7 @@ const SearchStackNavigator = createStackNavigator({
     navigationOptions: {
       headerShown: false
     }
+  
   },
   ArbreItem: {
     screen: ArbreItem,

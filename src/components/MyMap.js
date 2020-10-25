@@ -1,17 +1,44 @@
 
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, YellowBox } from 'react-native';
 import MapView, {Marker, Callout} from 'react-native-maps';
 import mapStyle from '../helpers/styleMap';
 
+// firebase SDK module
+import * as firebase from 'firebase';
+import 'firebase/firestore';
+import firebaseConfig from '../helpers/firebase'
 
-/**/ 
+// faut pas faire ca 
+YellowBox.ignoreWarnings(['Setting a timer']);
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+ }
+const db = firebase.firestore();
+
 
 
 export default class MyMap extends React.Component {
     constructor(props) {
         super(props)
+        this.getData()
+       
     }
+
+    async getData() {
+        d = []
+        const snapshot = db.collection("ARBRE");
+        const arbre = await snapshot.get();
+        arbre.forEach(doc => {
+            //console.log(doc.id, '=>', doc.data());
+            d.push(doc.data());
+          });
+        console.log(d)
+        
+        
+    }
+
+    
 
     render() {
         return(
@@ -27,7 +54,7 @@ export default class MyMap extends React.Component {
                         longitudeDelta: 0.0421,
                     }}
                     customMapStyle={mapStyle}>
-                        <Marker key={0}
+                        {/* <Marker key={0}
                                 coordinate={{
                                     latitude: 49.128333,
                                     longitude: 3.466944,
@@ -86,7 +113,21 @@ export default class MyMap extends React.Component {
                             }}
                             title={"Tilleul - St Dié-des-Vosges"}
                             description={"Description de L'Arbre 5"}
-                            image={require('../Ressources/Images/ArbreIcon.png')}/>
+                            image={require('../Ressources/Images/ArbreIcon.png')}/> */}
+                            {/* {
+                                this.state.data.map((marker) => {
+                                    <Marker key={0}
+                                            coordinate={{
+                                                latitude: marker["latitude"],
+                                                longitude: marker["longitude"],
+                                                latitudeDelta: 0.0922,
+                                                longitudeDelta: 0.0421,
+                                            }}
+                                            title={marker["name"] +  " - " + marker["ville"]}
+                                    />
+
+                                })
+                            } */}
                 </MapView>
             </View>
         )
