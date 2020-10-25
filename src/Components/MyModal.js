@@ -14,6 +14,9 @@ import * as firebase from 'firebase';
 export default class MyMap extends React.Component {
     constructor(props) {
         super(props)
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+         }
         state = {
             pass: "",
             email: "",
@@ -30,6 +33,7 @@ export default class MyMap extends React.Component {
     /*  Fonction d'envoi des données de création de compte 
         🛑Faire appel à cette fonction et non à __doCreateUser🛑
     */ 
+
     __doSignUp = () => {
         this.__doCreateUser(this.state.email, this.state.pass)
     }
@@ -39,6 +43,7 @@ export default class MyMap extends React.Component {
             let response = await firebase.auth().createUserWithEmailAndPassword(email, password)
             if (response) {
                 console.log(response)
+                console.log("Utilisateur Crée")
             }
         } catch (e) {
             console.error(e.message)
@@ -116,7 +121,7 @@ export default class MyMap extends React.Component {
                                 modeValue='text'
                                 uppercase={false}
                                 labelStyle={styles.navButtonText}
-                                onPress={() => this.__doSignUp}
+                                onPress={() => this.__doSignUp()}
                                 color={'green'}
                             />
                             <FormButton
