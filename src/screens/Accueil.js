@@ -99,8 +99,6 @@ class Accueil extends React.Component {
         />
 
         <MyModal state={this.state.isModalVisible} funcToggle={this.toggleModal}></MyModal>
-
-
       </View>
     )
   }
