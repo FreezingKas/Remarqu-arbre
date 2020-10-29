@@ -1,9 +1,12 @@
 import React from 'react';
-import { StyleSheet, View, Dimensions, setError, setValid, __isValidEmail, ToastAndroid, Alert } from 'react-native';
+import { StyleSheet, View, Dimensions, ToastAndroid, Alert } from 'react-native';
 import Modal from 'react-native-modal';
-import { Title, IconButton, Menu, Divider, Provider } from 'react-native-paper';
+import { Title, IconButton } from 'react-native-paper';
+import DialogInput from 'react-native-dialog-input';
+
 import FormInput from '../Components/FormInput';
 import FormButton from '../Components/FormButton';
+
 
 import * as firebase from 'firebase';
 
@@ -12,16 +15,36 @@ export default class MyMap extends React.Component {
         super(props)
         if (!firebase.apps.length) {
             firebase.initializeApp(firebaseConfig);
-         }
+        }
+
         this.state = {
             pass: "",
+            confirmPass: "",
             email: "",
             userData: undefined,
             isConnected: false,
-            newUser: false
+            newUser: false,
+            isDialogVisible: false
         }
+
         firebase.auth().onAuthStateChanged((user) => {
             if (user != null) {
+                if(!user.emailVerified) {
+                    Alert.alert(
+                        "Confirmation d'e-mail",
+                        "Confirmer votre adresse e-mail en cliquant sur le lien qui vous a été envoyé à celle indiquée.",
+                        [{
+                            text: "Ok"
+                        },
+                        {
+                            text: "Renvoyer l'e-mail",
+                            onPress: () => user.sendEmailVerification(),
+                        }],
+                        { cancelable: false }
+                    )
+
+                    firebase.auth().signOut();
+                }
                 console.log("Utilisateur connecté");
                 this.setState({
                     isConnected: true, 
@@ -42,7 +65,19 @@ export default class MyMap extends React.Component {
     */ 
 
     __doSignUp = () => {
-        this.__doCreateUser(this.state.email, this.state.pass)
+        if(this.state.pass == this.state.confirmPass) {
+            this.__doCreateUser(this.state.email, this.state.pass)
+        } else {
+            Alert.alert(
+                "Erreur",
+                "Vos mots de passe sont différents.",
+                [{
+                    text: "Ok"
+                }],
+                { cancelable: false }
+            )
+        }
+        
     }
 
     __doCreateUser = async (email, password) => {
@@ -51,13 +86,26 @@ export default class MyMap extends React.Component {
             if (response) {
                 console.log(response)
                 console.log("Utilisateur Crée")
+
+                firebase.auth().onAuthStateChanged(function(user) { user.sendEmailVerification(); })
+
+                Alert.alert(
+                    "Confirmation d'e-mail",
+                    "Un e-mail de confirmation vous a été envoyé à l'addresse e-mail indiqué.",
+                    [{
+                        text: "Ok"
+                    }],
+                    { cancelable: false }
+                )
+
                 this.setState({
                     pass: "",
+                    confirmPass: "",
                     email: "",
                     userData: response.user,
                     newUser: false
                 })
-                ToastAndroid.show("Inscription effectué", ToastAndroid.SHORT);
+                ToastAndroid.showWithGravity("Inscription effectué", ToastAndroid.BOTTOM, ToastAndroid.SHORT);
             }
         } catch (e) {
             if(e.message.search("email") != -1) {
@@ -95,12 +143,14 @@ export default class MyMap extends React.Component {
         try {
             let response = await firebase.auth().signInWithEmailAndPassword(email, password)
             if (response) {
+                console.log("Utilisateur connecté")
                 this.setState({
                     pass: "",
                     email: "",
                     userData: response.user
-                })
-                ToastAndroid.show("Connexion établie", ToastAndroid.SHORT);
+                }) 
+
+                ToastAndroid.showWithGravity("Connexion établie", ToastAndroid.BOTTOM, ToastAndroid.SHORT); 
             }
         } catch(e) {
             if(e.message.search("email") != -1) {
@@ -147,10 +197,11 @@ export default class MyMap extends React.Component {
     __doSignOutUser = async () => {
         try {
             let response = await firebase.auth().signOut()
+            console.log("Utilisateur déconnecté")
             this.setState({
                 userData: undefined
             })
-            ToastAndroid.show("Déconnexion...", ToastAndroid.SHORT);
+            ToastAndroid.showWithGravity("Déconnexion...", ToastAndroid.BOTTOM,ToastAndroid.SHORT);
         } catch (e) {
             Alert.alert(
                 "Erreur",
@@ -163,7 +214,36 @@ export default class MyMap extends React.Component {
         }
     }
 
+    __sendEmailForChangePassUser(email) {
+        firebase.auth().sendPasswordResetEmail(email).then(function() {
+            Alert.alert(
+                "Rénitialisation de mot de passe",
+                "Un e-mail pour changer votre mot de passe a été envoyé à l'adresse e-mail de connexion.",
+                [{
+                    text: "Ok",
+                    onPress: () => this.setState({isDialogVisible: false}),
+                }],
+                { cancelable: false }
+            )
+        })
+    }
+
     render() {
+        // Si l'utilisateur à oublié son mot de passe (DialogInput rénitialisation mot de passe)
+        if(this.state.isDialogVisible) {
+            return(
+                <DialogInput isDialogVisible={this.state.isDialogVisible}
+                    title={"Rénitialisation de mot de passe"}
+                    message={"Entrez une adresse e-mail où sera envoyé l'e-mail de rénitialisation de mot de passe."}
+                    hintInput ={"e-mail"}
+                    submitText={"Ok"}
+                    cancelText={"Fermer"}
+                    submitInput={ (inputText) => {this.__sendEmailForChangePassUser(inputText)} }
+                    closeDialog={ () => this.setState({isDialogVisible: false})}>
+                </DialogInput>
+            )
+        }
+        // Si un utilisateur n'est pas connecté et que ce n'est pas un nouveau utilisateur (modal connexion)
         if(!this.state.isConnected && !this.state.newUser) {
             return(
                 <View>
@@ -188,6 +268,14 @@ export default class MyMap extends React.Component {
                                     underlineColor={('green')}
                                 />
                                 <FormButton
+                                    title='Mot de passe oublié'
+                                    modeValue='text'
+                                    uppercase={false}
+                                    labelStyle={styles.navButtonText}
+                                    onPress={() => this.setState({isDialogVisible: true})}
+                                    color={'green'}
+                                />
+                                <FormButton
                                     title='Connexion'
                                     modeValue='contained'
                                     labelStyle={styles.loginButtonLabel}
@@ -208,7 +296,8 @@ export default class MyMap extends React.Component {
                     </Modal>
                 </View>
             )
-        } 
+        }
+        // Si un utilisateur n'est pas connecté et que c'est un nouveau utilisateur (modal inscription)
         else if (!this.state.isConnected && this.state.newUser) {
             return (
                 <View>
@@ -227,6 +316,13 @@ export default class MyMap extends React.Component {
                                     labelName='Mot de passe'
                                     secureTextEntry={true}
                                     onChangeText={(text) => this.setState({ pass: text })}
+                                    theme={{ colors: { primary: 'green', underlineColor: 'green', } }}
+                                    underlineColor={('green')}
+                                />
+                                <FormInput
+                                    labelName='Confirmer votre mot de passe'
+                                    secureTextEntry={true}
+                                    onChangeText={(text) => this.setState({ confirmPass: text })}
                                     theme={{ colors: { primary: 'green', underlineColor: 'green', } }}
                                     underlineColor={('green')}
                                 />
@@ -252,6 +348,7 @@ export default class MyMap extends React.Component {
                 </View>
             )
         }
+        // Sinon c'est qu'un utilisateur est déjà connecté (modal déconnexion)
         else {
             return (
                 <View>
@@ -264,6 +361,14 @@ export default class MyMap extends React.Component {
                                     modeValue='contained'
                                     labelStyle={styles.loginButtonLabel}
                                     onPress={() => this.__doSignOut()}
+                                    color={'green'}
+                                />
+                                <FormButton
+                                    title='Supprimer votre compte'
+                                    modeValue='text'
+                                    uppercase={false}
+                                    labelStyle={styles.navButtonText}
+                                    onPress={() => firebase.auth().onAuthStateChanged(function(user) { user.delete() })}
                                     color={'green'}
                                 />
                                 <IconButton icon="arrow-down-thick" color={'green'} size={30} onPress={this.props.funcToggle} />
@@ -281,7 +386,7 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         marginTop: '36%',
         borderRadius: 10,
-        maxHeight: Dimensions.get('window').height / 2 + 150
+        maxHeight: Dimensions.get('window').height / 2 + 80
     },
     containerView: {
         flex: 1,

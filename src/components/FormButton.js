@@ -11,6 +11,7 @@ export default function FormButton({ title, modeValue, ...rest }) {
       {...rest}
       style={styles.button}
       contentStyle={styles.buttonContainer}
+      compact={true}
     >
       {title}
     </Button>

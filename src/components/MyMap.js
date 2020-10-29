@@ -10,8 +10,6 @@ import 'firebase/firestore';
 import firebaseConfig from '../helpers/firebase'
 
 
-
-
 // on check si l'instance de firebase a déja été crée si non on la crée
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
@@ -52,7 +50,6 @@ export default class MyMap extends React.Component {
         this.setState({isLoaded: true})     
     }
 
-    
     render() {
         // screen quand les données des arbres ne sont pas encore récupérés
         if (!this.state.isLoaded) {
@@ -60,7 +57,6 @@ export default class MyMap extends React.Component {
                 <View style={styles.mapStyle}>
                     <ActivityIndicator size="large" color="#00ff00" style={styles.activityInd}/>
                 </View>
-                
             )
         // écran classique avec la map
         } else if(this.state.isLoaded) {
@@ -87,7 +83,7 @@ export default class MyMap extends React.Component {
                                                     latitudeDelta: 0.0922,
                                                     longitudeDelta: 0.0421
                                                 }}
-                                                title={marker.name}
+                                                title={marker.name + " - " + marker.ville}
                                                 key={marker.id}
                                             />
                                         )
@@ -97,8 +93,6 @@ export default class MyMap extends React.Component {
                 </View>
             )
         }
-
-        
     }
 }
 
