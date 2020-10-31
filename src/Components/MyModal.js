@@ -24,7 +24,8 @@ export default class MyMap extends React.Component {
             userData: undefined,
             isConnected: false,
             newUser: false,
-            isDialogVisible: false
+            isDialogVisible: false,
+            isDialogDeleteVisible: false
         }
 
         firebase.auth().onAuthStateChanged((user) => {
@@ -87,16 +88,8 @@ export default class MyMap extends React.Component {
                 console.log(response)
                 console.log("Utilisateur Crée")
 
-                firebase.auth().onAuthStateChanged(function(user) { user.sendEmailVerification(); })
-
-                Alert.alert(
-                    "Confirmation d'e-mail",
-                    "Un e-mail de confirmation vous a été envoyé à l'addresse e-mail indiqué.",
-                    [{
-                        text: "Ok"
-                    }],
-                    { cancelable: false }
-                )
+                firebase.auth().currentUser.sendEmailVerification();
+                await firebase.auth().signOut();
 
                 this.setState({
                     pass: "",
@@ -149,7 +142,6 @@ export default class MyMap extends React.Component {
                     email: "",
                     userData: response.user
                 }) 
-
                 ToastAndroid.showWithGravity("Connexion établie", ToastAndroid.BOTTOM, ToastAndroid.SHORT); 
             }
         } catch(e) {
@@ -215,17 +207,50 @@ export default class MyMap extends React.Component {
     }
 
     __sendEmailForChangePassUser(email) {
+        this.setState({ isDialogVisible: false })
         firebase.auth().sendPasswordResetEmail(email).then(function() {
             Alert.alert(
                 "Rénitialisation de mot de passe",
                 "Un e-mail pour changer votre mot de passe a été envoyé à l'adresse e-mail de connexion.",
                 [{
-                    text: "Ok",
-                    onPress: () => this.setState({isDialogVisible: false}),
+                    text: "Ok"
                 }],
                 { cancelable: false }
-            )
+            )  
         })
+    }
+
+    __doDeleteUser = async(password) => {
+        try {
+            let response = await firebase.auth().currentUser.reauthenticateWithCredential(firebase.auth.EmailAuthProvider.credential( firebase.auth().currentUser.email, password))
+            if(response) {
+                console.log("utilisateur supprimé")
+                Alert.alert(
+                    "Confirmation",
+                    "Voulez-vous vraiment supprimer ce compte ?",
+                    [{
+                        text: "Oui",
+                        onPress: () => firebase.auth().currentUser.delete()
+                    },
+                    {
+                        text: "Non",
+                        onPress: () => this.setState({isDialogDeleteVisible: false})
+                    }],
+                    { cancelable: false }
+                )  
+            }
+        } catch (e) {
+            if(e.message.search("password") != -1) {
+                Alert.alert(
+                    "Erreur",
+                    "Mot de passe incorrect\nImpossible de supprimer le compte.",
+                    [{
+                        text: "Ok",
+                    }],
+                    { cancelable: false }
+                )  
+            } 
+        }
     }
 
     render() {
@@ -240,6 +265,21 @@ export default class MyMap extends React.Component {
                     cancelText={"Fermer"}
                     submitInput={ (inputText) => {this.__sendEmailForChangePassUser(inputText)} }
                     closeDialog={ () => this.setState({isDialogVisible: false})}>
+                </DialogInput>
+            )
+        }
+        //Si l'utilisateur veut supprimer son compte (DialogInput demande le mot de passe comme confirmation)
+        if(this.state.isDialogDeleteVisible) {
+            return(
+                <DialogInput isDialogVisible={this.state.isDialogDeleteVisible}
+                    title={"Supression de compte"}
+                    message={"Entrez votre mot de passe pour confirmer cette action."}
+                    hintInput ={"mot de passe"}
+                    textInputProps={{secureTextEntry: true}}
+                    submitText={"Ok"}
+                    cancelText={"Fermer"}
+                    submitInput={ (inputText) => {this.__doDeleteUser(inputText)} }
+                    closeDialog={ () => this.setState({isDialogDeleteVisible: false})}>
                 </DialogInput>
             )
         }
@@ -368,7 +408,7 @@ export default class MyMap extends React.Component {
                                     modeValue='text'
                                     uppercase={false}
                                     labelStyle={styles.navButtonText}
-                                    onPress={() => firebase.auth().onAuthStateChanged(function(user) { user.delete() })}
+                                    onPress={() => { this.setState({ isDialogDeleteVisible: true }) }}
                                     color={'green'}
                                 />
                                 <IconButton icon="arrow-down-thick" color={'green'} size={30} onPress={this.props.funcToggle} />
