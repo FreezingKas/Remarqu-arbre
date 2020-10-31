@@ -88,9 +88,6 @@ export default class MyMap extends React.Component {
                 console.log(response)
                 console.log("Utilisateur Crée")
 
-                firebase.auth().currentUser.sendEmailVerification();
-                await firebase.auth().signOut();
-
                 this.setState({
                     pass: "",
                     confirmPass: "",
@@ -98,6 +95,11 @@ export default class MyMap extends React.Component {
                     userData: response.user,
                     newUser: false
                 })
+
+                firebase.auth().currentUser.sendEmailVerification();
+                await firebase.auth().signOut();
+
+                
                 ToastAndroid.showWithGravity("Inscription effectué", ToastAndroid.BOTTOM, ToastAndroid.SHORT);
             }
         } catch (e) {
@@ -237,7 +239,8 @@ export default class MyMap extends React.Component {
                         onPress: () => this.setState({isDialogDeleteVisible: false})
                     }],
                     { cancelable: false }
-                )  
+                ) 
+                ToastAndroid.showWithGravity("Suppréssion du compte réalisé...", ToastAndroid.BOTTOM,ToastAndroid.SHORT);
             }
         } catch (e) {
             if(e.message.search("password") != -1) {
