@@ -12,18 +12,25 @@ class ListEssence extends React.Component {
     }
   }
 
-  __switchViewCard() {
-      if(this.state.text == this.props.item.subTitle) {
-          this.setState({text: this.props.item.body})
-      } else {
-          this.setState({text: this.props.item.subTitle})
+  /*
+    Switch le contenu text entre le contenu du subTitle, et le body de la card en question (grâce à son id)
+  */
+  __switchParagraphText() {
+    // Si le contenu de text et égale au contenu du subTitle, ça change le contenu de text par le contenu du body
+    if(this.state.text == this.props.item.subTitle) {
+        this.setState({text: this.props.item.body})
+    // Sinon enversement
+    } else {
+        this.setState({text: this.props.item.subTitle})
       }
   }
 
   render() {
+    //Affiche une card avec le contenu du title, la source de la photo, et le contenu du subTitle (ou du body) de l'arbre en question
     return (
       <View style={styles.containerView}>
-        <TouchableOpacity onPress = {() => this.__switchViewCard() } style={styles.essenceItemView}>
+        {/* Appelle la fonction switchParagraphText dès que la card est pressé par l'utilisateur */}
+        <TouchableOpacity onPress = {() => this.__switchParagraphText() } style={styles.essenceItemView}>
             <Card>
               <Card.Cover source={this.props.item.photo} />
               <Card.Content>
@@ -31,7 +38,7 @@ class ListEssence extends React.Component {
                 <Paragraph>{this.state.text}</Paragraph>
               </Card.Content>
             </Card>
-          </TouchableOpacity>
+        </TouchableOpacity>
       </View>
     )
   }
@@ -42,19 +49,15 @@ const styles = StyleSheet.create({
     marginVertical: 5
   },
   essenceItemView: {
-    borderColor: 'black',
-    borderWidth: 2,
-    borderRadius: 8,
-
     shadowColor: "#000",
     shadowOffset: {
-      width: 5,
+      width: 10,
       height: 10,
     },
-    shadowOpacity: 0.9,
-    shadowRadius: 20,
+    shadowOpacity: 0.95,
+    shadowRadius: 50.00,
 
-    elevation: 5,
+    elevation: 38,
   }
 })
 

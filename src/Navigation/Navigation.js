@@ -5,7 +5,6 @@ import ArbreItem from '../Screens/ArbreItem';
 import Scan from '../Screens/Scan';
 import MoreInfo from '../Screens/MoreInfo'
 
-
 const SearchStackNavigator = createStackNavigator({
   Accueil: {
     screen: Accueil,

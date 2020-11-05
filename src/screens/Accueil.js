@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, StatusBar } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Modalize } from 'react-native-modalize';
 import { Provider } from 'react-native-paper'
 
@@ -63,7 +62,7 @@ class Accueil extends React.Component {
       <View style={styles.container}>
         <StatusBar hidden={true} />
 
-        <MyMap />
+        <MyMap nav={this.props.navigation}/>
         <Provider>
           <MyMenu state={this.state.isMenuVisible}
             nav={this.props.navigation}

@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, Text, View, Linking, TouchableOpacity, Image, Dimensions, ScrollView, ActivityIndicator } from 'react-native';
-import {getArbreDetailFromData} from '../helpers/Arbre'
 
 const width = Dimensions.get('window').width
 
@@ -11,19 +10,30 @@ class ArbreItem extends React.Component {
 
     this.state = {
       arbre: undefined,
-      isLoading: false
+      isLoading: false,
+      data: this.props.navigation.state.params.data
     }
   }
 
   componentDidMount() {
     this.setState({ isLoading: true })
     this.setState({
-      arbre: getArbreDetailFromData(this.props.navigation.state.params.id),
+      arbre: this.__getArbreDetailFromData(this.props.navigation.state.params.id),
       isLoading: false
     })
   }
 
-  _displayLoading() {
+  __getArbreDetailFromData(id) {
+    for (var i=0; this.state.data[i]; i++) {
+      var arbre = this.state.data[i]
+      if(arbre.id == id) {
+        console.log(this.state.data[i])
+        return this.state.data[i]
+      }
+    }
+  }
+
+  __displayLoading() {
     if (this.state.isLoading) {
       return (
         <View style={styles.loadingContainer}>
@@ -33,7 +43,7 @@ class ArbreItem extends React.Component {
     }
   }
 
-  _displayArbre() {
+  __displayArbre() {
     if(this.state.arbre != undefined) {
       return(
         <ScrollView style={styles.containerScrollView}>
@@ -44,7 +54,7 @@ class ArbreItem extends React.Component {
                 style = {styles.goBackImage}
               />
             </TouchableOpacity>
-            <Text style={styles.titleText}>{this.state.arbre.nom} de {this.state.arbre.ville}</Text>
+            <Text style={styles.titleText}>{this.state.arbre.name} de {this.state.arbre.ville}</Text>
           </View>
           <View style={styles.imageViewContainer}>
             <View style={styles.imageView}>
@@ -75,8 +85,8 @@ class ArbreItem extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        {this._displayLoading()}
-        {this._displayArbre()}
+        {this.__displayLoading()}
+        {this.__displayArbre()}
       </View>
     )
   }

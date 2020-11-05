@@ -85,10 +85,11 @@ export default class MyMap extends React.Component {
                                                 }}
                                                 title={marker.name + " - " + marker.ville}
                                                 key={marker.id}
+                                                onCalloutPress={() => { this.props.nav.navigate("ArbreItem", {id : marker.id, data: data}) }}
                                             />
                                         )
-                                    })
-                                }
+                                    }) 
+                                } 
                     </MapView>
                 </View>
             )
