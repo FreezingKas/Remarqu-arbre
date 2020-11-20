@@ -1,6 +1,23 @@
 import React from 'react';
 import { StyleSheet, Text, View, Linking, TouchableOpacity, Image, Dimensions, ScrollView, ActivityIndicator } from 'react-native';
 
+/**
+ * Firebase
+ */
+
+// firebase SDK module
+import * as firebase from 'firebase';
+import 'firebase/firestore';
+import firebaseConfig from '../helpers/firebase'
+
+// on check si l'instance de firebase a déja été crée si non on la crée
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+
+// on instancie firestore dans une variable c'est obligatoire (jsp pas pourquoi)
+const db = firebase.firestore();
+
 const width = Dimensions.get('window').width
 
 class ArbreItem extends React.Component {
@@ -23,11 +40,28 @@ class ArbreItem extends React.Component {
     })
   }
 
+  componentWillUnmount() {
+    this.__addArbreInhistorique()
+  }
+
+  __addArbreInhistorique() {
+    var jour = new Date().getDate();
+    var mois = new Date().getMonth() + 1;
+    var annee = new Date().getFullYear();
+    const date = jour + "/" + mois + "/" + annee
+    const idArbre = "AR" + this.props.navigation.state.params.id
+    const arbreRef = db.collection('UserData').doc(firebase.auth().currentUser.uid)
+    const addArbreId = arbreRef.set({
+      [idArbre]: {id : this.state.arbre.id, photo: 'https://file1.science-et-vie.com/var/scienceetvie/storage/images/1/0/0/100118/chaque-arbre-cache-une-foret.jpg', nom: this.state.arbre.name, ville: this.state.arbre.ville, date: date}
+    }, {merge: true})
+
+    console.log("Ajout de (AR" + this.props.navigation.state.params.id + ") : { \n id: "+ this.props.navigation.state.params.id + ",\n photo: https://file1.science-et-vie.com/var/scienceetvie/storage/images/1/0/0/100118/chaque-arbre-cache-une-foret.jpg" +",\n nom: " + this.state.arbre.name + ",\n ville: " + this.state.arbre.ville + ",\n date: " + date + "\n} \nà l'historique de" + firebase.auth().currentUser.uid)
+  }
+
   __getArbreDetailFromData(id) {
     for (var i=0; this.state.data[i]; i++) {
       var arbre = this.state.data[i]
       if(arbre.id == id) {
-        console.log(this.state.data[i])
         return this.state.data[i]
       }
     }

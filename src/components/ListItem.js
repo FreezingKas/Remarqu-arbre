@@ -9,10 +9,10 @@ class ListItem extends React.Component {
   render() {
     return (
       <View style={styles.containerView}>
-        <TouchableOpacity style={styles.arbreItemView} onPress={() => this.props.nav.navigate("ArbreItem", {id : this.props.item.id})}>
+        <TouchableOpacity style={styles.arbreItemView} onPress={() => this.props.nav.navigate("ArbreItem", {id : this.props.item.id, data: this.props.dataArbre})}>
           <Image
             style={styles.image}
-            source={this.props.item.photo}
+            source={{uri: this.props.item.photo}}
           />
           <View style={styles.arbreItemText}>
             <Text style={styles.nomArbreItemText}>{this.props.item.nom} - {this.props.item.ville}</Text>
