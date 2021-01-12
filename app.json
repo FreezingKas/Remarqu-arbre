@@ -23,7 +23,7 @@
       "package": "com.company.freezingkas",
       "config": {
           "googleMaps": {
-              "apiKey": "AIzaSyAyFBFUGpc4_jQCD5z85IyBu8DjOL1-fog"
+              "apiKey": "[Insérer votre clé de l'API Google Map]"
           }
       }
     },
@@ -31,7 +31,7 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.company.freezingkas",
       "config": {
-          "googleMapsApiKey": "AIzaSyBM3ikuKqnokbnw_-u2cTU8ZnxT1GgVTMg"
+          "googleMapsApiKey": "[Insérer votre clé de l'API Google Map]"
       }
     }
   }
